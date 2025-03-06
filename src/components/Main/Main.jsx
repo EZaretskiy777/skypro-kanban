@@ -1,92 +1,52 @@
+import { useEffect, useState } from "react";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
+import { statusList } from "../../enums";
+import { cartList } from "../../data";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Main = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
-            <Column title={"Без статуса"}>
-              <Card
-                theme={"Web Design"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="orange"
-              />
-              <Card
-                theme={"Research"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="green"
-              />
-              <Card
-                theme={"Web Design"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="orange"
-              />
-              <Card
-                theme={"Copywriting"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="purple"
-              />
-              <Card
-                theme={"Web Design"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="orange"
-              />
-            </Column>
-            <Column title={"Нужно сделать"}>
-              <Card
-                theme={"Research"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="green"
-              />
-            </Column>
-            <Column title={"В работе"}>
-              <Card
-                theme={"Research"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="green"
-              />
-              <Card
-                theme={"Copywriting"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="purple"
-              />
-              <Card
-                theme={"Web Design"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="orange"
-              />
-            </Column>
-            <Column title={"Тестирование"}>
-              <Card
-                theme={"Research"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="green"
-              />
-            </Column>
-            <Column title={"Готово"}>
-              <Card
-                theme={"Research"}
-                title={"Название задачи"}
-                date={"30.10.23"}
-                color="green"
-              />
-            </Column>
+    <SkeletonTheme color="#202020" highlightColor="#444">
+      {isLoading && <p className="main__loader_text">Данные загружаются...</p>}
+      <main className="main">
+        <div className="container">
+          <div className="main__block">
+            <div className="main__content">
+              {Object.entries(statusList).map((status) => {
+                return (
+                  <Column key={status[1]} title={status[1]}>
+                    {cartList.map((card) => {
+                      if (card.status === status[1]) {
+                        return isLoading ? (
+                          <Skeleton key={card.id} height={130} width={220} />
+                        ) : (
+                          <Card
+                            key={card.id}
+                            theme={card.theme}
+                            title={card.title}
+                            date={card.date}
+                          />
+                        );
+                      }
+                    })}
+                  </Column>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </SkeletonTheme>
   );
 };
 

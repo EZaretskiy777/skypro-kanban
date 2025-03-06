@@ -1,19 +1,29 @@
 import PropTypes from "prop-types";
+import { themeList } from "../../enums";
 
-const Card = ({ theme, title, date, color }) => {
+const Card = ({ theme, title, date }) => {
+  const color = () => {
+    switch (theme) {
+      case themeList.webDesign:
+        return "orange";
+      case themeList.research:
+        return "green";
+      case themeList.copywriting:
+        return "purple";
+      default:
+        return "gray";
+    }
+  };
+
   return (
     <div className="cards__item">
       <div className="cards__card card">
         <div className="card__group">
-          <div className={`card__theme _${color}`}>
-            <p className={`_${color}`}>{theme}</p>
+          <div className={`card__theme _${color()}`}>
+            <p className={`_${color()}`}>{theme}</p>
           </div>
           <a href="#popBrowse" target="_self">
-            <div className="card__btn">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
+            <div className="card__btn"></div>
           </a>
         </div>
         <div className="card__content">
@@ -61,7 +71,7 @@ Card.propTypes = {
   theme: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default Card;

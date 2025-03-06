@@ -41,6 +41,7 @@ body {
   height: 100%;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: #000000;
+  background-color: #eaeef6;
 }
 
 .wrapper {
@@ -48,7 +49,6 @@ body {
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
-  background-color: #f1f1f1;
 }
 
 .container {
@@ -771,6 +771,8 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #565eef;
+  border: none;
+  background: transparent;
 }
 .header__user::after {
   content: "";
@@ -785,7 +787,7 @@ body {
   padding: 0;
 }
 .header__pop-user-set {
-  display: none;
+  display: block;
   position: absolute;
   top: 61px;
   right: 0;
@@ -802,7 +804,6 @@ body {
 
 .main {
   width: 100%;
-  background-color: #eaeef6;
 }
 .main__block {
   width: 100%;
@@ -817,6 +818,18 @@ body {
   width: 20%;
   margin: 0 auto;
   display: block;
+}
+
+.main__loader_text {
+  color: #94a6be;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .column__title {
