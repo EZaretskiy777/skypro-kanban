@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const PopUser = () => {
   return (
     <div className="header__pop-user-set pop-user-set" id="user-set-target">
@@ -12,6 +14,10 @@ const PopUser = () => {
       </button>
     </div>
   );
+};
+
+PopUser.propTypes = {
+  showUserPopupHandler: PropTypes.func.isRequired,
 };
 
 export default PopUser;
