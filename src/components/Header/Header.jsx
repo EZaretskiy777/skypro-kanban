@@ -1,41 +1,43 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import PopUser from "../popups/PopUser/PopUser";
+import * as S from "./styledComponents";
+import { ThemeContext } from "../../pages/MainPage/MainPage";
 
 const Header = () => {
   const [showUserPopup, setShowUserPopup] = useState(false);
   const showUserPopupHandler = () => {
     setShowUserPopup(!showUserPopup);
   };
+  const { theme, showPopExit } = useContext(ThemeContext);
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
-            <a href="" target="_self">
-              <img src="/logo.png" alt="logo" />
-            </a>
-          </div>
-          <div className="header__logo _dark">
-            <a href="" target="_self">
-              <img src="/logo_dark.png" alt="logo" />
-            </a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
-            </button>
-            <button
-              onClick={showUserPopupHandler}
-              className="header__user _hover02"
-            >
+    <S.Header>
+      <S.HeaderContainer>
+        <S.HeaderBlock>
+          <S.HeaderLogo>
+            <S.HeaderLink href="" target="_self">
+              <S.HeaderLogoImg
+                src={theme === "light" ? "/logo.png" : "/logo_dark.png"}
+                alt="logo"
+              />
+            </S.HeaderLink>
+          </S.HeaderLogo>
+          <S.HeaderNav>
+            <S.HeaderBtnMainNew>
+              <S.HeaderBtnMainNewLink href="#popNewCard">
+                Создать новую задачу
+              </S.HeaderBtnMainNewLink>
+            </S.HeaderBtnMainNew>
+            <S.HeaderUserBtn onClick={showUserPopupHandler}>
               Ivan Ivanov
-            </button>
-            {showUserPopup && <PopUser />}
-          </nav>
-        </div>
-      </div>
-    </header>
+            </S.HeaderUserBtn>
+            {showUserPopup && !showPopExit && (
+              <PopUser showUserPopupHandler={showUserPopupHandler} />
+            )}
+          </S.HeaderNav>
+        </S.HeaderBlock>
+      </S.HeaderContainer>
+    </S.Header>
   );
 };
 

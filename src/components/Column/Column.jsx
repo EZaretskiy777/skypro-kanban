@@ -1,13 +1,16 @@
 import PropTypes from "prop-types";
+import * as S from "./styledComponents";
 
 const Column = ({ title, children }) => {
   return (
-    <div className="main__column">
-      <div className="column__title">
-        <p>{title}</p>
-      </div>
-      <div className="column__content">{children}</div>
-    </div>
+    <S.Column>
+      <S.ColumnTitle>
+        <S.ColumnTitleText>{title}</S.ColumnTitleText>
+      </S.ColumnTitle>
+      <S.ColumnContent>
+        <S.Cards>{children}</S.Cards>
+      </S.ColumnContent>
+    </S.Column>
   );
 };
 
