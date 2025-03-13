@@ -76,7 +76,6 @@ Card.propTypes = {
   theme: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
 };
 
 export default Card;
