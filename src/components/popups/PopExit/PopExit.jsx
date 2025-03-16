@@ -1,24 +1,33 @@
+import { useContext } from "react";
+import * as S from "./styledComponents";
+import { ThemeContext } from "../../../pages/MainPage/MainPage";
+
 const PopExit = () => {
+  const { handlerSetShowPopExit } = useContext(ThemeContext);
   return (
-    <div className="pop-exit" id="popExit">
-      <div className="pop-exit__container">
-        <div className="pop-exit__block">
-          <div className="pop-exit__ttl">
-            <h2>Выйти из аккаунта?</h2>
-          </div>
-          <form className="pop-exit__form" id="formExit" action="#">
-            <div className="pop-exit__form-group">
-              <button className="pop-exit__exit-yes _hover01" id="exitYes">
-                <a href="modal/signin.html">Да, выйти</a>{" "}
-              </button>
-              <button className="pop-exit__exit-no _hover03" id="exitNo">
-                <a href="main.html">Нет, остаться</a>{" "}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <S.PopExit>
+      <S.PopExitContainer>
+        <S.PopExitBlock>
+          <S.PopExitTtl>
+            <S.PropExitTtlH2>Выйти из аккаунта?</S.PropExitTtlH2>
+          </S.PopExitTtl>
+          <S.PopExitForm id="formExit" action="#">
+            <S.PopExitFormGroup>
+              <S.PopExitExitYes onClick={handlerSetShowPopExit}>
+                <S.PopExitExitYesA href="modal/signin.html">
+                  Да, выйти
+                </S.PopExitExitYesA>{" "}
+              </S.PopExitExitYes>
+              <S.PopExitExitNo onClick={handlerSetShowPopExit}>
+                <S.PopExitExitNoA href="main.html">
+                  Нет, остаться
+                </S.PopExitExitNoA>{" "}
+              </S.PopExitExitNo>
+            </S.PopExitFormGroup>
+          </S.PopExitForm>
+        </S.PopExitBlock>
+      </S.PopExitContainer>
+    </S.PopExit>
   );
 };
 

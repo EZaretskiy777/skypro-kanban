@@ -5,6 +5,7 @@ import { statusList } from "../../enums";
 import { cartList } from "../../data";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import * as S from "./styledComponents";
 
 const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,10 +19,10 @@ const Main = () => {
   return (
     <SkeletonTheme color="#202020" highlightColor="#444">
       {isLoading && <p className="main__loader_text">Данные загружаются...</p>}
-      <main className="main">
-        <div className="container">
-          <div className="main__block">
-            <div className="main__content">
+      <S.Main>
+        <S.MainContainer>
+          <S.MainBlock>
+            <S.MainContent>
               {Object.entries(statusList).map((status) => {
                 return (
                   <Column key={status[1]} title={status[1]}>
@@ -42,10 +43,10 @@ const Main = () => {
                   </Column>
                 );
               })}
-            </div>
-          </div>
-        </div>
-      </main>
+            </S.MainContent>
+          </S.MainBlock>
+        </S.MainContainer>
+      </S.Main>
     </SkeletonTheme>
   );
 };
