@@ -1,13 +1,12 @@
 import "./App.css";
-import "./pages/MainPage/MainPage";
-import MainPage from "./pages/MainPage/MainPage";
 import { GlobalStyles } from "./globalStyles";
+import AppRoutes from "./AppRoutes";
 
 function App() {
   return (
     <>
       <GlobalStyles />
-      <MainPage />
+      <AppRoutes />
     </>
   );
 }

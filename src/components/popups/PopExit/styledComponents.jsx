@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const PopExit = styled.div`
   width: 100%;
@@ -91,7 +92,7 @@ export const PopExitExitYes = styled.button`
   }
 `;
 
-export const PopExitExitYesA = styled.a`
+export const PopExitExitYesButton = styled.div`
   width: 100%;
   height: 100%;
   color: #ffffff;
@@ -125,7 +126,7 @@ export const PopExitExitNo = styled.button`
   }
 `;
 
-export const PopExitExitNoA = styled.a`
+export const PopExitExitNoLink = styled(Link)`
   width: 100%;
   height: 100%;
   color: #565eef;

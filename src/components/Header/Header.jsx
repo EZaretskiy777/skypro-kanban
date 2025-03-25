@@ -8,7 +8,7 @@ const Header = () => {
   const showUserPopupHandler = () => {
     setShowUserPopup(!showUserPopup);
   };
-  const { theme, showPopExit } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <S.Header>
@@ -24,14 +24,14 @@ const Header = () => {
           </S.HeaderLogo>
           <S.HeaderNav>
             <S.HeaderBtnMainNew>
-              <S.HeaderBtnMainNewLink href="#popNewCard">
+              <S.HeaderBtnMainNewLink to="/newcard">
                 Создать новую задачу
               </S.HeaderBtnMainNewLink>
             </S.HeaderBtnMainNew>
             <S.HeaderUserBtn onClick={showUserPopupHandler}>
               Ivan Ivanov
             </S.HeaderUserBtn>
-            {showUserPopup && !showPopExit && (
+            {showUserPopup && (
               <PopUser showUserPopupHandler={showUserPopupHandler} />
             )}
           </S.HeaderNav>
