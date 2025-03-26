@@ -15,7 +15,7 @@ const Header = () => {
       <S.HeaderContainer>
         <S.HeaderBlock>
           <S.HeaderLogo>
-            <S.HeaderLink href="" target="_self">
+            <S.HeaderLink to="/">
               <S.HeaderLogoImg
                 src={theme === "light" ? "/logo.png" : "/logo_dark.png"}
                 alt="logo"

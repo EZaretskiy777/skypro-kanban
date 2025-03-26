@@ -33,7 +33,7 @@ export const HeaderBlock = styled.div`
 
 export const HeaderLogo = styled.div``;
 
-export const HeaderLink = styled.a``;
+export const HeaderLink = styled(Link)``;
 
 export const HeaderLogoImg = styled.img`
   width: 85px;
