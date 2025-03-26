@@ -85,6 +85,7 @@ const AuthForm = ({ isSignUp = false }) => {
   const handlerNavigate = () => {
     setErrors({ name: false, login: false, password: false });
     setError("");
+    setFormData({ name: "", login: "", password: "" });
     navigate(isSignUp ? "/signin" : "/signup");
   };
 
