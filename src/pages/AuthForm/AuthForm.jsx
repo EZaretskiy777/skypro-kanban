@@ -7,6 +7,12 @@ import { signIn, signUp } from "../../services/api/api";
 const AuthForm = ({ isSignUp = false }) => {
   const navigate = useNavigate();
 
+  const signInErrotText =
+    "Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.";
+  const signUpErrorText =
+    "Введенные вами данные не корректны. Чтобы завершить регистрацию, заполните все поля в форме.";
+  const finalErrorText = isSignUp ? signUpErrorText : signInErrotText;
+
   const [formData, setFormData] = useState({
     name: "",
     login: "",
@@ -27,19 +33,19 @@ const AuthForm = ({ isSignUp = false }) => {
 
     if (isSignUp && !formData.name.trim()) {
       newErrors.name = true;
-      setError("Заполните все поля");
+      setError(finalErrorText);
       isValid = false;
     }
 
     if (!formData.login.trim()) {
       newErrors.login = true;
-      setError("Заполните все поля");
+      setError(finalErrorText);
       isValid = false;
     }
 
     if (!formData.password.trim()) {
       newErrors.password = true;
-      setError("Заполните все поля");
+      setError(finalErrorText);
       isValid = false;
     }
 
@@ -48,7 +54,6 @@ const AuthForm = ({ isSignUp = false }) => {
   };
 
   const handleChange = (e) => {
-    console.log(errors);
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -77,6 +82,12 @@ const AuthForm = ({ isSignUp = false }) => {
     }
   };
 
+  const handlerNavigate = () => {
+    setErrors({ name: false, login: false, password: false });
+    setError("");
+    navigate(isSignUp ? "/signin" : "/signup");
+  };
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -94,7 +105,7 @@ const AuthForm = ({ isSignUp = false }) => {
                   placeholder="Имя"
                   onChange={handleChange}
                   value={formData.name}
-                  // error={errors.name}
+                  $error={errors.name}
                 />
               )}
               <S.ModalInput
@@ -104,7 +115,7 @@ const AuthForm = ({ isSignUp = false }) => {
                 placeholder="Эл. почта"
                 onChange={handleChange}
                 value={formData.login}
-                // error={errors.login}
+                $error={errors.login}
               />
               <S.ModalInput
                 type="password"
@@ -112,17 +123,17 @@ const AuthForm = ({ isSignUp = false }) => {
                 placeholder="Пароль"
                 onChange={handleChange}
                 value={formData.password}
-                // error={errors.password}
+                $error={errors.password}
               />
               {error && <S.ErrorP>{error}</S.ErrorP>}
-              <S.ModalBtnEnter>
+              <S.ModalBtnEnter $disabled={error === "" ? false : true}>
                 {isSignUp ? "Зарегистрироваться" : "Войти"}
               </S.ModalBtnEnter>
               <S.ModalFormGroup>
                 <S.ModalFormGroupP>
                   {isSignUp ? "Уже есть аккаунт?" : "Нужно зарегистрироваться?"}
                 </S.ModalFormGroupP>
-                <S.ModalFormGroupLink to={isSignUp ? "/signin" : "/signUp"}>
+                <S.ModalFormGroupLink onClick={handlerNavigate}>
                   {isSignUp ? "Войдите здесь" : "Регистрируйтесь здесь"}
                 </S.ModalFormGroupLink>
               </S.ModalFormGroup>

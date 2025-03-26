@@ -16,34 +16,34 @@ const Main = () => {
     }, 5000);
   }, []);
 
+  const mainContent = Object.entries(statusList).map((status) => {
+    return (
+      <Column key={status[1]} title={status[1]}>
+        {cartList.map((card) => {
+          if (card.status === status[1]) {
+            return isLoading ? (
+              <Skeleton key={card.id} height={130} width={220} />
+            ) : (
+              <Card
+                key={card.id}
+                theme={card.theme}
+                title={card.title}
+                date={card.date}
+              />
+            );
+          }
+        })}
+      </Column>
+    );
+  });
+
   return (
     <SkeletonTheme color="#202020" highlightColor="#444">
       {isLoading && <p className="main__loader_text">Данные загружаются...</p>}
       <S.Main>
         <S.MainContainer>
           <S.MainBlock>
-            <S.MainContent>
-              {Object.entries(statusList).map((status) => {
-                return (
-                  <Column key={status[1]} title={status[1]}>
-                    {cartList.map((card) => {
-                      if (card.status === status[1]) {
-                        return isLoading ? (
-                          <Skeleton key={card.id} height={130} width={220} />
-                        ) : (
-                          <Card
-                            key={card.id}
-                            theme={card.theme}
-                            title={card.title}
-                            date={card.date}
-                          />
-                        );
-                      }
-                    })}
-                  </Column>
-                );
-              })}
-            </S.MainContent>
+            <S.MainContent>{mainContent}</S.MainContent>
           </S.MainBlock>
         </S.MainContainer>
       </S.Main>

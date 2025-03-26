@@ -76,6 +76,8 @@ export const ModalInput = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
+  border-color: ${(props) =>
+    props.$error ? "red" : "rgba(148, 166, 190, 0.4)"};
 
   ::-moz-placeholder {
     font-family: "Roboto", sans-serif;
@@ -101,7 +103,7 @@ export const ModalInput = styled.input`
 export const ModalBtnEnter = styled.button`
   width: 100%;
   height: 30px;
-  background-color: #565eef;
+  background-color: ${(props) => (props.$disabled ? "#94A6BE" : "#565eef")};
   border-radius: 4px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -115,6 +117,7 @@ export const ModalBtnEnter = styled.button`
   font-weight: 500;
   letter-spacing: -0.14px;
   color: #ffffff;
+  pointer-events: ${(props) => (props.$disabled ? "none" : null)};
 
   &:hover {
     background-color: #33399b;
@@ -136,18 +139,31 @@ export const ModalFormGroupP = styled.p`
   letter-spacing: -0.14px;
 `;
 
-export const ModalFormGroupLink = styled(Link)`
+export const ModalFormGroupLink = styled.div`
   color: rgba(148, 166, 190, 0.4);
   font-size: 14px;
   font-weight: 400;
   line-height: 150%;
   letter-spacing: -0.14px;
   text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ErrorP = styled.p`
-  margin-top: 15px;
-  color: red;
-  font-size: 14px;
+  margin-top: 7px;
+  font-family: Arial;
   font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #f84d4d;
+  font-family: Arial;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0%;
+  text-align: center;
 `;
