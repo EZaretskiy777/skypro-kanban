@@ -3,6 +3,7 @@ import MainPage from "./pages/MainPage/MainPage";
 import AuthForm from "./pages/AuthForm/AuthForm";
 import PopExit from "./components/popups/PopExit/PopExit";
 import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
+import NotFound from "./pages/NotFound/NotFound";
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
         </Route>
         <Route path="/signin" element={<AuthForm />} />
         <Route path="/signup" element={<AuthForm isSignUp={true} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
