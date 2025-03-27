@@ -1,11 +1,15 @@
+import { useContext } from "react";
 import * as S from "./styledComponents";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../App";
 
 const PopExit = () => {
   const navigate = useNavigate();
+  const { setIsAuth } = useContext(AuthContext);
 
   const exitHandler = () => {
     localStorage.setItem("userInfo", "");
+    setIsAuth(false);
     navigate("/signin");
   };
 

@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as S from "./styledComponents";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../services/api/api";
+import { AuthContext } from "../../App";
 
 const AuthForm = ({ isSignUp = false }) => {
   const navigate = useNavigate();
+  const { setIsAuth } = useContext(AuthContext);
 
   const signInErrotText =
     "Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.";
@@ -75,6 +77,7 @@ const AuthForm = ({ isSignUp = false }) => {
 
       if (data) {
         localStorage.setItem("userInfo", JSON.stringify(data));
+        setIsAuth(true);
         navigate("/");
       }
     } catch (err) {
