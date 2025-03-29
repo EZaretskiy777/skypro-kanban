@@ -3,7 +3,6 @@ import * as S from "./styledComponents";
 
 const PopUser = ({ showUserPopupHandler }) => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
-  console.log(user);
 
   return (
     <S.HeaderPopUserSet id="user-set-target">
