@@ -9,6 +9,7 @@ const Header = () => {
     setShowUserPopup(!showUserPopup);
   };
   const { theme } = useContext(ThemeContext);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <S.Header>
@@ -29,7 +30,7 @@ const Header = () => {
               </S.HeaderBtnMainNewLink>
             </S.HeaderBtnMainNew>
             <S.HeaderUserBtn onClick={showUserPopupHandler}>
-              Ivan Ivanov
+              {user.name}
             </S.HeaderUserBtn>
             {showUserPopup && (
               <PopUser showUserPopupHandler={showUserPopupHandler} />

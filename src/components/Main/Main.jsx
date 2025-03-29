@@ -12,10 +12,11 @@ const Main = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    getKanbanTasks()
+    getKanbanTasks({
+      token: JSON.parse(localStorage.getItem("userInfo")).token,
+    })
       .then((data) => {
         setTasks(data);
-        console.log(tasks);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -26,20 +27,21 @@ const Main = () => {
   const mainContent = Object.entries(statusList).map((status) => {
     return (
       <Column key={status[1]} title={status[1]}>
-        {tasks.map((card) => {
-          if (card.status === status[1]) {
-            return isLoading ? (
-              <Skeleton key={card.id} height={130} width={220} />
-            ) : (
-              <Card
-                key={card.id}
-                theme={card.theme}
-                title={card.title}
-                date={card.date}
-              />
-            );
-          }
-        })}
+        {tasks.length > 0 &&
+          tasks.map((task) => {
+            if (task.status === status[1]) {
+              return isLoading ? (
+                <Skeleton key={task._id} height={130} width={220} />
+              ) : (
+                <Card
+                  key={task._id}
+                  theme={task.topic}
+                  title={task.title}
+                  date={task.date}
+                />
+              );
+            }
+          })}
       </Column>
     );
   });

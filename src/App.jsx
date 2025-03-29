@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import { GlobalStyles } from "./globalStyles";
 import AppRoutes from "./AppRoutes";
@@ -7,6 +8,10 @@ const AuthContext = createContext();
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    setIsAuth(localStorage.getItem("userInfo") === "" ? false : true);
+  }, [localStorage.getItem("userInfo")]);
 
   return (
     <>

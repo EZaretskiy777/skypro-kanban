@@ -10,19 +10,20 @@ import { AuthContext } from "./App";
 
 const AppRoutes = () => {
   const { isAuth } = useContext(AuthContext);
-  console.log(isAuth);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoute isAuth={isAuth} />}>
+        <Route element={<PrivateRoute isAuth={isAuth} navigateTo="/signin" />}>
           <Route path="/" element={<MainPage />}>
             <Route path="exit" element={<PopExit />} />
             <Route path="newcard" element={<PopNewCard />} />
           </Route>
         </Route>
-        <Route path="/signin" element={<AuthForm />} />
-        <Route path="/signup" element={<AuthForm isSignUp={true} />} />
+        <Route element={<PrivateRoute isAuth={!isAuth} navigateTo="/" />}>
+          <Route path="/signin" element={<AuthForm />} />
+          <Route path="/signup" element={<AuthForm isSignUp={true} />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

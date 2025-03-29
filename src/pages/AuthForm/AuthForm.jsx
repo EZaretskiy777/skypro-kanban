@@ -77,7 +77,6 @@ const AuthForm = ({ isSignUp = false }) => {
 
       if (data) {
         localStorage.setItem("userInfo", JSON.stringify(data));
-        localStorage.setItem("token", JSON.stringify(data.token));
         setIsAuth(true);
         navigate("/");
       }
