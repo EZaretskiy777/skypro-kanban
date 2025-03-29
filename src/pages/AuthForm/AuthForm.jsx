@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import * as S from "./styledComponents";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { signIn, signUp } from "../../services/api/api";
+import { signIn, signUp } from "../../services/api/user";
 import { AuthContext } from "../../App";
 
 const AuthForm = ({ isSignUp = false }) => {
@@ -77,6 +77,7 @@ const AuthForm = ({ isSignUp = false }) => {
 
       if (data) {
         localStorage.setItem("userInfo", JSON.stringify(data));
+        localStorage.setItem("token", JSON.stringify(data.token));
         setIsAuth(true);
         navigate("/");
       }

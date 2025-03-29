@@ -2,24 +2,31 @@ import { useEffect, useState } from "react";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
 import { statusList } from "../../enums";
-import { cartList } from "../../data";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./styledComponents";
+import { getKanbanTasks } from "../../services/api/tasks";
 
 const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
+    getKanbanTasks()
+      .then((data) => {
+        setTasks(data);
+        console.log(tasks);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
   const mainContent = Object.entries(statusList).map((status) => {
     return (
       <Column key={status[1]} title={status[1]}>
-        {cartList.map((card) => {
+        {tasks.map((card) => {
           if (card.status === status[1]) {
             return isLoading ? (
               <Skeleton key={card.id} height={130} width={220} />
