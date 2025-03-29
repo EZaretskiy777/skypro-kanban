@@ -2,10 +2,13 @@ import PropTypes from "prop-types";
 import * as S from "./styledComponents";
 
 const PopUser = ({ showUserPopupHandler }) => {
+  const user = JSON.parse(localStorage.getItem("userInfo"));
+  console.log(user);
+
   return (
     <S.HeaderPopUserSet id="user-set-target">
-      <S.PopUserSetName>Ivan Ivanov</S.PopUserSetName>
-      <S.PopUserSetMail>ivan.ivanov@gmail.com</S.PopUserSetMail>
+      <S.PopUserSetName>{user.name}</S.PopUserSetName>
+      <S.PopUserSetMail>{user.login}</S.PopUserSetMail>
       <S.PopUserSetTheme>
         <S.PopUserSetThemeP>Темная тема</S.PopUserSetThemeP>
         <S.PopUserSetThemeInput
