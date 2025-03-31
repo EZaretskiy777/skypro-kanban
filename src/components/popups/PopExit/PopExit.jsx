@@ -1,9 +1,18 @@
 import { useContext } from "react";
 import * as S from "./styledComponents";
-import { ThemeContext } from "../../../pages/MainPage/MainPage";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../App";
 
 const PopExit = () => {
-  const { handlerSetShowPopExit } = useContext(ThemeContext);
+  const navigate = useNavigate();
+  const { setIsAuth } = useContext(AuthContext);
+
+  const exitHandler = () => {
+    localStorage.setItem("userInfo", "");
+    setIsAuth(false);
+    navigate("/signin");
+  };
+
   return (
     <S.PopExit>
       <S.PopExitContainer>
@@ -13,15 +22,13 @@ const PopExit = () => {
           </S.PopExitTtl>
           <S.PopExitForm id="formExit" action="#">
             <S.PopExitFormGroup>
-              <S.PopExitExitYes onClick={handlerSetShowPopExit}>
-                <S.PopExitExitYesA href="modal/signin.html">
+              <S.PopExitExitYes>
+                <S.PopExitExitYesButton onClick={exitHandler}>
                   Да, выйти
-                </S.PopExitExitYesA>{" "}
+                </S.PopExitExitYesButton>
               </S.PopExitExitYes>
-              <S.PopExitExitNo onClick={handlerSetShowPopExit}>
-                <S.PopExitExitNoA href="main.html">
-                  Нет, остаться
-                </S.PopExitExitNoA>{" "}
+              <S.PopExitExitNo>
+                <S.PopExitExitNoLink to="/">Нет, остаться</S.PopExitExitNoLink>
               </S.PopExitExitNo>
             </S.PopExitFormGroup>
           </S.PopExitForm>

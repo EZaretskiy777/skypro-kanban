@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const HeaderPopUserSet = styled.div`
   display: block;
@@ -34,7 +35,7 @@ export const PopUserSetBtn = styled.button`
   }
 `;
 
-export const PopUserSetBtnA = styled.a`
+export const PopUserSetBtnLink = styled(Link)`
   color: #565eef;
 `;
 

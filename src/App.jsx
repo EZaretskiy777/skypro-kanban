@@ -1,15 +1,27 @@
+import { useEffect } from "react";
 import "./App.css";
-import "./pages/MainPage/MainPage";
-import MainPage from "./pages/MainPage/MainPage";
 import { GlobalStyles } from "./globalStyles";
+import AppRoutes from "./AppRoutes";
+import { createContext, useState } from "react";
+
+const AuthContext = createContext();
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    setIsAuth(localStorage.getItem("userInfo") ? true : false);
+  }, []);
+
   return (
     <>
-      <GlobalStyles />
-      <MainPage />
+      <AuthContext.Provider value={{ isAuth: isAuth, setIsAuth: setIsAuth }}>
+        <GlobalStyles />
+        <AppRoutes />
+      </AuthContext.Provider>
     </>
   );
 }
 
 export default App;
+export { AuthContext };

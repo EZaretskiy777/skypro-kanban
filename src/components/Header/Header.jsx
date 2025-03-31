@@ -8,14 +8,15 @@ const Header = () => {
   const showUserPopupHandler = () => {
     setShowUserPopup(!showUserPopup);
   };
-  const { theme, showPopExit } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <S.Header>
       <S.HeaderContainer>
         <S.HeaderBlock>
           <S.HeaderLogo>
-            <S.HeaderLink href="" target="_self">
+            <S.HeaderLink to="/">
               <S.HeaderLogoImg
                 src={theme === "light" ? "/logo.png" : "/logo_dark.png"}
                 alt="logo"
@@ -24,14 +25,14 @@ const Header = () => {
           </S.HeaderLogo>
           <S.HeaderNav>
             <S.HeaderBtnMainNew>
-              <S.HeaderBtnMainNewLink href="#popNewCard">
+              <S.HeaderBtnMainNewLink to="/newcard">
                 Создать новую задачу
               </S.HeaderBtnMainNewLink>
             </S.HeaderBtnMainNew>
             <S.HeaderUserBtn onClick={showUserPopupHandler}>
-              Ivan Ivanov
+              {user.name}
             </S.HeaderUserBtn>
-            {showUserPopup && !showPopExit && (
+            {showUserPopup && (
               <PopUser showUserPopupHandler={showUserPopupHandler} />
             )}
           </S.HeaderNav>

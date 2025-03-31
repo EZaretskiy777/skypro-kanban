@@ -1,15 +1,13 @@
-import { useContext } from "react";
 import PropTypes from "prop-types";
-import { ThemeContext } from "../../../pages/MainPage/MainPage";
 import * as S from "./styledComponents";
 
-const PopUser = () => {
-  const { setShowPopExitHandler } = useContext(ThemeContext);
+const PopUser = ({ showUserPopupHandler }) => {
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
     <S.HeaderPopUserSet id="user-set-target">
-      <S.PopUserSetName>Ivan Ivanov</S.PopUserSetName>
-      <S.PopUserSetMail>ivan.ivanov@gmail.com</S.PopUserSetMail>
+      <S.PopUserSetName>{user.name}</S.PopUserSetName>
+      <S.PopUserSetMail>{user.login}</S.PopUserSetMail>
       <S.PopUserSetTheme>
         <S.PopUserSetThemeP>Темная тема</S.PopUserSetThemeP>
         <S.PopUserSetThemeInput
@@ -18,8 +16,8 @@ const PopUser = () => {
           name="checkbox"
         />
       </S.PopUserSetTheme>
-      <S.PopUserSetBtn onClick={setShowPopExitHandler} type="button">
-        <S.PopUserSetBtnA>Выйти</S.PopUserSetBtnA>
+      <S.PopUserSetBtn onClick={showUserPopupHandler} type="button">
+        <S.PopUserSetBtnLink to="/exit">Выйти</S.PopUserSetBtnLink>
       </S.PopUserSetBtn>
     </S.HeaderPopUserSet>
   );
