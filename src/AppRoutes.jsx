@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 import AuthForm from "./pages/AuthForm/AuthForm";
-import PopExit from "./components/popups/PopExit/PopExit";
-import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
 import NotFound from "./pages/NotFound/NotFound";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { AuthContext } from "./App";
+import Card from "./pages/Card/Card";
+import Exit from "./pages/Exit/Exit";
+import NewCard from "./pages/NewCard/NewCard";
 
 const AppRoutes = () => {
   const { isAuth } = useContext(AuthContext);
@@ -14,15 +15,16 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRoute isAuth={isAuth} navigateTo="/signin" />}>
+        <Route element={<PrivateRoute isAuth={isAuth} navigateTo="/login" />}>
           <Route path="/" element={<MainPage />}>
-            <Route path="exit" element={<PopExit />} />
-            <Route path="newcard" element={<PopNewCard />} />
+            <Route path="exit" element={<Exit />} />
+            <Route path="newcard" element={<NewCard />} />
+            <Route path="card/:id" element={<Card />} />
           </Route>
         </Route>
         <Route element={<PrivateRoute isAuth={!isAuth} navigateTo="/" />}>
-          <Route path="/signin" element={<AuthForm />} />
-          <Route path="/signup" element={<AuthForm isSignUp={true} />} />
+          <Route path="/login" element={<AuthForm />} />
+          <Route path="/register" element={<AuthForm isSignUp={true} />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

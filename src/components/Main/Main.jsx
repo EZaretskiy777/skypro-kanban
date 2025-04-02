@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
 import { statusList } from "../../enums";
@@ -8,6 +9,7 @@ import * as S from "./styledComponents";
 import { getKanbanTasks } from "../../services/api/tasks";
 
 const Main = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
 
@@ -24,6 +26,10 @@ const Main = () => {
       });
   }, []);
 
+  const cardInfoHandler = (taskId) => {
+    navigate(`/card/${taskId}`);
+  };
+
   const mainContent = Object.entries(statusList).map((status) => {
     return (
       <Column key={status[1]} title={status[1]}>
@@ -34,6 +40,7 @@ const Main = () => {
                 <Skeleton key={task._id} height={130} width={220} />
               ) : (
                 <Card
+                  onClick={() => cardInfoHandler(task._id)}
                   key={task._id}
                   theme={task.topic}
                   title={task.title}

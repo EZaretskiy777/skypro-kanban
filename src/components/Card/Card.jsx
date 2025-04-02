@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { themeList } from "../../enums";
 import * as S from "./styledComponents";
 
-const Card = ({ theme, title, date }) => {
+const Card = ({ theme, title, date, onClick }) => {
   const color = () => {
     switch (theme) {
       case themeList.webDesign:
@@ -17,13 +17,13 @@ const Card = ({ theme, title, date }) => {
   };
 
   return (
-    <S.CardsItem>
+    <S.CardsItem onClick={onClick}>
       <S.Card>
         <S.CardGroup>
           <S.CardTheme $color={color()}>
             <S.CardThemeText $color={color()}>{theme}</S.CardThemeText>
           </S.CardTheme>
-          <S.CardLink href="#popBrowse" target="_self">
+          <S.CardLink>
             <S.CardBtn>
               <S.CardBtnBlock />
               <S.CardBtnBlock />
@@ -32,7 +32,7 @@ const Card = ({ theme, title, date }) => {
           </S.CardLink>
         </S.CardGroup>
         <S.CardContent>
-          <S.CardContentLink href="" target="_blank">
+          <S.CardContentLink>
             <S.CardTitle>{title}</S.CardTitle>
           </S.CardContentLink>
           <S.CardDate>
@@ -76,6 +76,7 @@ Card.propTypes = {
   theme: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Card;

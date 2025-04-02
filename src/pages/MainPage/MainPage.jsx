@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import PopBrowse from "../../components/popups/PopBrowse/PopBrowse";
 import Header from "../../components/Header/Header";
 import Main from "../../components/Main/Main";
 import * as S from "./styledComponents";
@@ -28,7 +27,6 @@ const MainPage = () => {
     >
       <S.Wrapper>
         <Outlet />
-        <PopBrowse />
         <Header />
         <Main />
       </S.Wrapper>

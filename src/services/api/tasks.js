@@ -17,6 +17,20 @@ export async function getKanbanTasks({ token }) {
   }
 }
 
+export async function getKanbanTask({ token, taskId }) {
+  try {
+    const data = await axios.get(API_URL_KANBAN + "/" + taskId, {
+      headers: {
+        authorization: `Bearer ${token}`.replaceAll('"', ""),
+      },
+    });
+    return data.data.task;
+  } catch (error) {
+    console.error(error);
+    throw new Error(error.response.data.error);
+  }
+}
+
 export async function addKanbanTask({ task }) {
   try {
     const data = await axios.post(API_URL_KANBAN, task, {

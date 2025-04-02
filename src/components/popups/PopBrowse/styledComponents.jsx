@@ -1,7 +1,25 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const PopBrowsContainer = styled.div`
-  display: none;
+export const PopBrows = styled.div`
+  width: 100%;
+  height: 100%;
+  min-width: 375px;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  &:target {
+    display: block;
+  }
+  @media screen and (max-width: 660px) {
+    top: 70px;
+  }
+`;
+
+export const PopBrowsContainer = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
   min-height: 100vh;
@@ -25,7 +43,7 @@ const PopBrowsContainer = styled.div`
   }
 `;
 
-const PopBrowsBlock = styled.div`
+export const PopBrowsBlock = styled.div`
   display: block;
   margin: 0 auto;
   background-color: #ffffff;
@@ -47,43 +65,218 @@ const PopBrowsBlock = styled.div`
   }
 `;
 
-const PopBrowsTopBlock = styled.div`
+export const PopBrowserContent = styled.div`
+  display: block;
+  text-align: left;
+`;
+
+export const PopBrowsTopBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 18px;
 `;
 
-const Title = styled.h3`
+export const PopBrowsTtl = styled.h3`
   color: #000;
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
 `;
 
-const StatusBlock = styled.div`
+export const CategoriesTheme = styled.div`
+  display: inline-block;
+  width: auto;
+  height: 30px;
+  padding: 8px 20px;
+  border-radius: 24px;
+  margin-right: 7px;
+  display: block;
+
+  background-color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ffe4c2";
+      case "green":
+        return "#b4fdd1";
+      case "purple":
+        return "#e9d4ff";
+      case "gray":
+        return "#94a6be";
+    }
+  }};
+
+  color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ff6d00";
+      case "green":
+        return "#06b16e";
+      case "purple":
+        return "#9a48f1";
+      case "gray":
+        return "#ffffff";
+    }
+  }};
+
+  opacity: ${({ $active }) => ($active ? 1 : 0.4)};
+
+  @media screen and (max-width: 495px) {
+    display: none;
+  }
+`;
+
+export const CategoriesThemeText = styled.p`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  white-space: nowrap;
+
+  background-color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ffe4c2";
+      case "green":
+        return "#b4fdd1";
+      case "purple":
+        return "#e9d4ff";
+      case "gray":
+        return "#94a6be";
+    }
+  }};
+
+  color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ff6d00";
+      case "green":
+        return "#06b16e";
+      case "purple":
+        return "#9a48f1";
+      case "gray":
+        return "#ffffff";
+    }
+  }};
+`;
+
+export const PopBroswStatus = styled.div`
   margin-bottom: 11px;
 `;
 
-const StatusThemes = styled.div`
+export const PopBrowsStatusText = styled.p`
+  margin-bottom: 14px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+`;
+
+export const StatusThemes = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
 `;
 
-const StatusTheme = styled.div`
+export const StatusTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   color: #94a6be;
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
-  background: ${({ $color }) => $color || "transparent"};
   cursor: pointer;
+  display: ${({ $hide }) => ($hide ? "none" : "block")};
+  background-color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ffe4c2";
+      case "green":
+        return "#b4fdd1";
+      case "purple":
+        return "#e9d4ff";
+      case "gray":
+        return "#94a6be";
+    }
+  }};
+
+  color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ff6d00";
+      case "green":
+        return "#06b16e";
+      case "purple":
+        return "#9a48f1";
+      case "gray":
+        return "#ffffff";
+    }
+  }};
 `;
 
-const TextArea = styled.textarea`
+export const StatusThemeText = styled.p`
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+  background-color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ffe4c2";
+      case "green":
+        return "#b4fdd1";
+      case "purple":
+        return "#e9d4ff";
+      case "gray":
+        return "#94a6be";
+    }
+  }};
+
+  color: ${({ $color }) => {
+    switch ($color) {
+      case "orange":
+        return "#ff6d00";
+      case "green":
+        return "#06b16e";
+      case "purple":
+        return "#9a48f1";
+      case "gray":
+        return "#ffffff";
+    }
+  }};
+`;
+
+export const PopBrowsWrap = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  @media screen and (max-width: 660px) {
+    display: block;
+  }
+`;
+
+export const PopBrowsForm = styled.form`
+  max-width: 370px;
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+  @media screen and (max-width: 495px) {
+    max-width: 100%;
+  }
+`;
+
+export const PopBrowsFormBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const PopBrowsFormLabel = styled.label`
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+`;
+
+export const TextArea = styled.textarea`
   max-width: 370px;
   width: 100%;
   outline: none;
@@ -97,12 +290,114 @@ const TextArea = styled.textarea`
   margin-top: 14px;
   height: 200px;
   color: #000;
+
   &::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1px;
     color: #94a6be;
+    letter-spacing: -0.14px;
+  }
+  &::-moz-placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1px;
+    color: #94a6be;
+    letter-spacing: -0.14px;
+  }
+  @media screen and (max-width: 495px) {
+    max-width: 100%;
+    height: 37px;
   }
 `;
 
-const Button = styled.button`
+export const PopNewBrowserCalendar = styled.div`
+  width: 182px;
+  margin-bottom: 20px;
+  @media screen and (max-width: 495px) {
+    width: 100%;
+  }
+`;
+
+export const ThemeDownCategory = styled.div`
+  display: none;
+  margin-bottom: 20px;
+  @media screen and (max-width: 495px) {
+    display: block;
+    margin-bottom: 20px;
+  }
+`;
+
+export const ThemeDownCategoryText = styled.p`
+  margin-bottom: 14px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+`;
+
+export const PopBrowsBtnBrowse = styled.div`
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  display: ${({ $hide }) => ($hide ? "none" : "flex")};
+`;
+
+export const BtnGroup = styled.div`
+  @media screen and (max-width: 495px) {
+    width: 100%;
+  }
+`;
+
+export const PopBrowsBtn = styled.button`
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+  margin-right: 8px;
+  border-radius: 4px;
+  border: 0.7px solid var(--palette-navy-60, #565eef);
+  outline: none;
+  background: transparent;
+  color: #565eef;
+  &:hover {
+    background-color: #33399b;
+    color: #ffffff;
+  }
+  @media screen and (max-width: 495px) {
+    width: 100%;
+    height: 40px;
+    margin-right: 0px;
+  }
+`;
+
+export const PopBrowsBtnBg = styled.button`
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+  margin-right: 8px;
+  border-radius: 4px;
+  background: #565eef;
+  border: none;
+  outline: none;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #33399b;
+  }
+
+  @media screen and (max-width: 495px) {
+    width: 100%;
+    height: 40px;
+    margin-right: 0px;
+  }
+`;
+
+export const PopBrowsLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+`;
+
+export const Button = styled.button`
   height: 30px;
   margin-bottom: 10px;
   padding: 0 14px;
@@ -120,17 +415,3 @@ const Button = styled.button`
     transform: scale(0.95);
   }
 `;
-
-const S = {
-  PopBrowsContainer,
-  PopBrowsBlock,
-  PopBrowsTopBlock,
-  Title,
-  StatusBlock,
-  StatusThemes,
-  StatusTheme,
-  TextArea,
-  Button,
-};
-
-export default S;

@@ -1,102 +1,127 @@
+import { useEffect, useState } from "react";
 import Calendar from "../../Calendar/Calendar";
+import * as S from "./styledComponents";
+import { useParams } from "react-router-dom";
+import { getKanbanTask } from "../../../services/api/tasks";
+import { themeList } from "../../../enums";
 
 const PopBrowse = () => {
+  const [task, setTask] = useState({});
+  const { id: taskId } = useParams();
+
+  useEffect(() => {
+    const fetchTask = async () => {
+      try {
+        const kanbanTask = await getKanbanTask({
+          token: JSON.parse(localStorage.getItem("userInfo")).token,
+          taskId,
+        });
+        console.log("Task1: " + kanbanTask);
+        setTask(kanbanTask);
+      } catch (error) {
+        console.error("Error fetching task:", error);
+      }
+    };
+
+    fetchTask();
+  }, [taskId]);
+
+  const color = (theme) => {
+    switch (theme) {
+      case themeList.webDesign:
+        return "orange";
+      case themeList.research:
+        return "green";
+      case themeList.copywriting:
+        return "purple";
+      default:
+        return "gray";
+    }
+  };
+
+  console.log("Task2: " + task.description);
+
   return (
-    <div className="pop-browse" id="popBrowse">
-      <div className="pop-browse__container">
-        <div className="pop-browse__block">
-          <div className="pop-browse__content">
-            <div className="pop-browse__top-block">
-              <h3 className="pop-browse__ttl">Название задачи</h3>
-              <div className="categories__theme theme-top _orange _active-category">
-                <p className="_orange">Web Design</p>
-              </div>
-            </div>
-            <div className="pop-browse__status status">
-              <p className="status__p subttl">Статус</p>
-              <div className="status__themes">
-                <div className="status__theme _hide">
-                  <p>Без статуса</p>
-                </div>
-                <div className="status__theme _gray">
-                  <p className="_gray">Нужно сделать</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>В работе</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Тестирование</p>
-                </div>
-                <div className="status__theme _hide">
-                  <p>Готово</p>
-                </div>
-              </div>
-            </div>
-            <div className="pop-browse__wrap">
-              <form
-                className="pop-browse__form form-browse"
-                id="formBrowseCard"
-                action="#"
-              >
-                <div className="form-browse__block">
-                  <label htmlFor="textArea01" className="subttl">
-                    Описание задачи
-                  </label>
-                  <textarea
-                    className="form-browse__area"
+    <S.PopBrows>
+      <S.PopBrowsContainer>
+        <S.PopBrowsBlock>
+          <S.PopBrowserContent>
+            <S.PopBrowsTopBlock>
+              <S.PopBrowsTtl>{task.title}</S.PopBrowsTtl>
+              <S.CategoriesTheme $color={color(task.topic)} $active={true}>
+                <S.CategoriesThemeText $color={color(task.topic)}>
+                  {task.topic}
+                </S.CategoriesThemeText>
+              </S.CategoriesTheme>
+            </S.PopBrowsTopBlock>
+            <S.PopBroswStatus>
+              <S.PopBrowsStatusText>Статус</S.PopBrowsStatusText>
+              <S.StatusThemes>
+                <S.StatusTheme $hide={true}>
+                  <S.StatusThemeText>Без статуса</S.StatusThemeText>
+                </S.StatusTheme>
+                <S.StatusTheme $color="gray">
+                  <S.StatusThemeText $color="gray">
+                    {task.status}
+                  </S.StatusThemeText>
+                </S.StatusTheme>
+                <S.StatusTheme $hide={true}>
+                  <S.StatusThemeText>В работе</S.StatusThemeText>
+                </S.StatusTheme>
+                <S.StatusTheme $hide={true}>
+                  <S.StatusThemeText>Тестирование</S.StatusThemeText>
+                </S.StatusTheme>
+                <S.StatusTheme $hide={true}>
+                  <S.StatusThemeText>Готово</S.StatusThemeText>
+                </S.StatusTheme>
+              </S.StatusThemes>
+            </S.PopBroswStatus>
+            <S.PopBrowsWrap>
+              <S.PopBrowsForm>
+                <S.PopBrowsFormBlock>
+                  <S.PopBrowsFormLabel>Описание задачи</S.PopBrowsFormLabel>
+                  <S.TextArea
                     name="text"
-                    id="textArea01"
                     readOnly
                     placeholder="Введите описание задачи..."
-                  ></textarea>
-                </div>
-              </form>
-              <div className="pop-new-card__calendar calendar">
+                  >
+                    {task.description}
+                  </S.TextArea>
+                </S.PopBrowsFormBlock>
+              </S.PopBrowsForm>
+              <S.PopNewBrowserCalendar>
                 <Calendar />
-              </div>
-            </div>
-            <div className="theme-down__categories theme-down">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__theme _orange _active-category">
-                <p className="_orange">Web Design</p>
-              </div>
-            </div>
-            <div className="pop-browse__btn-browse ">
-              <div className="btn-group">
-                <button className="btn-browse__edit _btn-bor _hover03">
-                  <a href="#">Редактировать задачу</a>
-                </button>
-                <button className="btn-browse__delete _btn-bor _hover03">
-                  <a href="#">Удалить задачу</a>
-                </button>
-              </div>
-              <button className="btn-browse__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button>
-            </div>
-            <div className="pop-browse__btn-edit _hide">
-              <div className="btn-group">
-                <button className="btn-edit__edit _btn-bg _hover01">
-                  <a href="#">Сохранить</a>
-                </button>
-                <button className="btn-edit__edit _btn-bor _hover03">
-                  <a href="#">Отменить</a>
-                </button>
-                <button
-                  className="btn-edit__delete _btn-bor _hover03"
-                  id="btnDelete"
-                >
-                  <a href="#">Удалить задачу</a>
-                </button>
-              </div>
-              <button className="btn-edit__close _btn-bg _hover01">
-                <a href="#">Закрыть</a>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              </S.PopNewBrowserCalendar>
+            </S.PopBrowsWrap>
+            <S.ThemeDownCategory>
+              <S.ThemeDownCategoryText>Категория</S.ThemeDownCategoryText>
+              <S.CategoriesTheme $color="orange" $active={true}>
+                <S.CategoriesThemeText $color="orange">
+                  Web Design
+                </S.CategoriesThemeText>
+              </S.CategoriesTheme>
+            </S.ThemeDownCategory>
+            <S.PopBrowsBtnBrowse>
+              <S.BtnGroup>
+                <S.PopBrowsBtn>Редактировать задачу</S.PopBrowsBtn>
+                <S.PopBrowsBtn>Удалить задачу</S.PopBrowsBtn>
+              </S.BtnGroup>
+              <S.PopBrowsBtnBg>
+                <S.PopBrowsLink to="/">Закрыть</S.PopBrowsLink>
+              </S.PopBrowsBtnBg>
+            </S.PopBrowsBtnBrowse>
+            <S.PopBrowsBtnBrowse $hide={true}>
+              <S.BtnGroup>
+                <S.PopBrowsBtnBg>Сохранить</S.PopBrowsBtnBg>
+                <S.PopBrowsBtn>Отменить</S.PopBrowsBtn>
+                <S.PopBrowsBtn>Удалить задачу</S.PopBrowsBtn>
+              </S.BtnGroup>
+              <S.PopBrowsBtnBg>Закрыть</S.PopBrowsBtnBg>
+            </S.PopBrowsBtnBrowse>
+          </S.PopBrowserContent>
+        </S.PopBrowsBlock>
+      </S.PopBrowsContainer>
+    </S.PopBrows>
   );
 };
 

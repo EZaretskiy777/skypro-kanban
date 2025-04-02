@@ -10,7 +10,7 @@ const PopExit = () => {
   const exitHandler = () => {
     localStorage.setItem("userInfo", "");
     setIsAuth(false);
-    navigate("/signin");
+    navigate("/login");
   };
 
   return (
