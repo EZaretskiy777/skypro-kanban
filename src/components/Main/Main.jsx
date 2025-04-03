@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
@@ -7,11 +7,12 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./styledComponents";
 import { getKanbanTasks } from "../../services/api/tasks";
+import { TaskContext } from "../../App";
 
 const Main = () => {
   const navigate = useNavigate();
+  const { tasks, setTasks } = useContext(TaskContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     getKanbanTasks({

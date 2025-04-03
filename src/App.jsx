@@ -5,9 +5,11 @@ import AppRoutes from "./AppRoutes";
 import { createContext, useState } from "react";
 
 const AuthContext = createContext();
+const TaskContext = createContext();
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     setIsAuth(localStorage.getItem("userInfo") ? true : false);
@@ -16,8 +18,10 @@ function App() {
   return (
     <>
       <AuthContext.Provider value={{ isAuth: isAuth, setIsAuth: setIsAuth }}>
-        <GlobalStyles />
-        <AppRoutes />
+        <TaskContext.Provider value={{ tasks: tasks, setTasks: setTasks }}>
+          <GlobalStyles />
+          <AppRoutes />
+        </TaskContext.Provider>
       </AuthContext.Provider>
     </>
   );
@@ -25,3 +29,4 @@ function App() {
 
 export default App;
 export { AuthContext };
+export { TaskContext };
