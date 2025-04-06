@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import * as S from "./styledComponents";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../App";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const PopExit = () => {
   const navigate = useNavigate();

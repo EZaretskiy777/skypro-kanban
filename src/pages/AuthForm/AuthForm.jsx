@@ -3,7 +3,7 @@ import * as S from "./styledComponents";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../services/api/user";
-import { AuthContext } from "../../App";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AuthForm = ({ isSignUp = false }) => {
   const navigate = useNavigate();

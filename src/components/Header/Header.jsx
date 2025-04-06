@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import PopUser from "../popups/PopUser/PopUser";
 import * as S from "./styledComponents";
-import { ThemeContext } from "../../pages/MainPage/MainPage";
+import { ThemeContext } from "../../providers/ThemeProvider";
 
 const Header = () => {
   const [showUserPopup, setShowUserPopup] = useState(false);

@@ -7,7 +7,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./styledComponents";
 import { getKanbanTasks } from "../../services/api/tasks";
-import { TaskContext } from "../../App";
+import { TaskContext } from "../../providers/TaskProvider";
 
 const Main = () => {
   const navigate = useNavigate();
