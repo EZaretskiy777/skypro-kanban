@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import Calendar from "../../Calendar/Calendar";
+import moment from "moment";
+import ru from "moment/locale/ru";
 import * as S from "./styledComponents";
 import { useParams } from "react-router-dom";
 import { getKanbanTask } from "../../../services/api/tasks";
 import { themeList } from "../../../enums";
+import "react-day-picker/style.css";
 
 const PopBrowse = () => {
   const [task, setTask] = useState({});
@@ -16,15 +18,20 @@ const PopBrowse = () => {
           token: JSON.parse(localStorage.getItem("userInfo")).token,
           taskId,
         });
-        console.log("Task1: " + kanbanTask);
         setTask(kanbanTask);
       } catch (error) {
         console.error("Error fetching task:", error);
       }
     };
-
     fetchTask();
   }, [taskId]);
+
+  const setDateHandler = (date) => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      date,
+    }));
+  };
 
   const color = (theme) => {
     switch (theme) {
@@ -38,8 +45,6 @@ const PopBrowse = () => {
         return "gray";
     }
   };
-
-  console.log("Task2: " + task.description);
 
   return (
     <S.PopBrows>
@@ -90,7 +95,22 @@ const PopBrowse = () => {
                 </S.PopBrowsFormBlock>
               </S.PopBrowsForm>
               <S.PopNewBrowserCalendar>
-                <Calendar />
+                <S.CalendarTitle>Даты</S.CalendarTitle>
+                <S.Calendar
+                  peekNextMonth
+                  locale={ru}
+                  firstDayOfWeek={2}
+                  mode="single"
+                  selected={task.date}
+                  onSelect={setDateHandler}
+                  footer={
+                    task.date
+                      ? `Срок исполнения: ${moment(task.date).format(
+                          "DD.MM.YYYY"
+                        )}`
+                      : "Выберите дату"
+                  }
+                />
               </S.PopNewBrowserCalendar>
             </S.PopBrowsWrap>
             <S.ThemeDownCategory>

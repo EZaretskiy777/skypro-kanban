@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { DayPicker } from "react-day-picker";
 
 export const PopBrows = styled.div`
   width: 100%;
@@ -277,6 +278,7 @@ export const PopBrowsFormLabel = styled.label`
 `;
 
 export const TextArea = styled.textarea`
+  resize: none;
   max-width: 370px;
   width: 100%;
   outline: none;
@@ -288,7 +290,7 @@ export const TextArea = styled.textarea`
   line-height: 1;
   letter-spacing: -0.14px;
   margin-top: 14px;
-  height: 200px;
+  height: 224px;
   color: #000;
 
   &::placeholder {
@@ -314,9 +316,20 @@ export const TextArea = styled.textarea`
 export const PopNewBrowserCalendar = styled.div`
   width: 182px;
   margin-bottom: 20px;
+  transform: translate(0);
   @media screen and (max-width: 495px) {
     width: 100%;
   }
+`;
+
+export const CalendarTitle = styled.p`
+  padding: 0 !important;
+  margin-bottom: 14px;
+  padding: 0 7px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
 `;
 
 export const ThemeDownCategory = styled.div`
@@ -414,4 +427,13 @@ export const Button = styled.button`
   &:active {
     transform: scale(0.95);
   }
+`;
+
+export const Calendar = styled(DayPicker)`
+  --rdp-day-height: 25px;
+  --rdp-day-width: 25px;
+  --rdp-day_button-height: 25px;
+  --rdp-day_button-width: 25px;
+  --rdp-nav-height: 25px;
+  --rdp-cell-size: 25px;
 `;
