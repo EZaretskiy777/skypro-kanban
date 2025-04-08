@@ -2,12 +2,13 @@ import { useEffect, useState, useContext } from "react";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
 import { statusList } from "../../enums";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./styledComponents";
 import { getKanbanTasks, changeKanbanTask } from "../../services/api/tasks";
 import { TaskContext } from "../../providers/TaskProvider";
 import { DndContext } from "@dnd-kit/core";
+import { SkeletonTheme } from "react-loading-skeleton";
+import SkeletonCard from "../Card/SkeletonCard";
 
 const Main = () => {
   const { tasks, setTasks } = useContext(TaskContext);
@@ -28,14 +29,9 @@ const Main = () => {
 
   const dragEndHandler = (e) => {
     const { active, over } = e;
-    console.log("Active:", active);
-    console.log("Over:", over);
-
     if (!over) return;
     const currentTaskId = active.id;
     const newStatus = over.id;
-
-    console.log("newStatus: ", newStatus);
 
     setTasks((prevTasks) =>
       prevTasks.map((task) => {
@@ -67,7 +63,7 @@ const Main = () => {
         {tasks.map((task) => {
           if (task.status === status[1]) {
             return isLoading ? (
-              <Skeleton key={task._id} height={130} width={220} />
+              <SkeletonCard key={task._id} />
             ) : (
               <Card
                 id={task._id}
@@ -86,8 +82,6 @@ const Main = () => {
 
   return (
     <SkeletonTheme color="#202020" highlightColor="#444">
-      {isLoading && <S.MainLoaderText>Данные загружаются...</S.MainLoaderText>}
-
       <S.Main>
         <S.MainContainer>
           <S.MainBlock>

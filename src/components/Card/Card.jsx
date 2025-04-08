@@ -16,8 +16,8 @@ const Card = ({ theme, id, title, date }) => {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
-    position: "relative",
-    zIndex: isDragging ? 1000 : 1,
+    position: isDragging ? "relative" : "static",
+    zIndex: isDragging ? 999 : 1,
     opacity: isDragging ? 0.8 : 1,
     transition: "box-shadow 0.2s ease",
     boxShadow: isDragging ? "0 0 10px rgba(0,0,0,0.2)" : "none",

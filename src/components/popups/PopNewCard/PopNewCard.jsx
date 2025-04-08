@@ -32,7 +32,6 @@ const PopNewCard = () => {
         token: JSON.parse(localStorage.getItem("userInfo")).token,
         task,
       }).then((data) => {
-        console.log("data: ", data);
         setTasks(data);
         navigate("/");
       });
@@ -108,7 +107,6 @@ const PopNewCard = () => {
                       $active={task.topic === theme[1]}
                       key={theme[1]}
                       onClick={() => {
-                        console.log("topic.target: ", theme[1]);
                         setDataHandler("topic", theme[1]);
                       }}
                     >

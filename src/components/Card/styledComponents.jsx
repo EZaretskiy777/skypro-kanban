@@ -2,9 +2,6 @@ import styled from "styled-components";
 
 export const CardsItem = styled.div`
   padding: 5px;
-  animation-name: card-animation;
-  animation-duration: 500ms;
-  animation-timing-function: linear;
 `;
 
 export const Card = styled.div`

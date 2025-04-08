@@ -91,6 +91,7 @@ body {
   cursor: pointer;
   &:hover {
     background-color: #eaeef6;
+    color: #94a6be !important;
   }
   @media screen and (max-width: 660px) {
     width: 42px;
