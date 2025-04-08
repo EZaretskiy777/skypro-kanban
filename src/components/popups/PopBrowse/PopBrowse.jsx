@@ -4,8 +4,8 @@ import ru from "moment/locale/ru";
 import * as S from "./styledComponents";
 import { useParams } from "react-router-dom";
 import { getKanbanTask } from "../../../services/api/tasks";
-import { themeList } from "../../../enums";
 import "react-day-picker/style.css";
+import { color } from "../../../services/utils/color";
 
 const PopBrowse = () => {
   const [task, setTask] = useState({});
@@ -31,19 +31,6 @@ const PopBrowse = () => {
       ...prevTask,
       date,
     }));
-  };
-
-  const color = (theme) => {
-    switch (theme) {
-      case themeList.webDesign:
-        return "orange";
-      case themeList.research:
-        return "green";
-      case themeList.copywriting:
-        return "purple";
-      default:
-        return "gray";
-    }
   };
 
   return (

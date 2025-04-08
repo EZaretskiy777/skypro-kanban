@@ -31,16 +31,21 @@ export async function getKanbanTask({ token, taskId }) {
   }
 }
 
-export async function addKanbanTask({ task }) {
+export async function addKanbanTask({ token, task }) {
   try {
-    const data = await axios.post(API_URL_KANBAN, task, {
+    const response = await axios.post(API_URL_KANBAN, task, {
       headers: {
-        authorization: token,
+        Authorization: `Bearer ${token}`.replaceAll('"', ""),
+        "Content-Type": "application/json",
       },
     });
-    return data.data;
+    return response.data;
   } catch (error) {
-    throw new Error(error.response.data.error);
+    console.error(
+      "Ошибка при создании задачи:",
+      error.response?.data || error.message
+    );
+    throw new Error(error.response?.data?.error || "Неизвестная ошибка");
   }
 }
 

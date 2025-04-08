@@ -1,27 +1,15 @@
 import PropTypes from "prop-types";
-import { themeList } from "../../enums";
 import * as S from "./styledComponents";
+import { color } from "../../services/utils/color";
+import moment from "moment";
 
 const Card = ({ theme, title, date, onClick }) => {
-  const color = () => {
-    switch (theme) {
-      case themeList.webDesign:
-        return "orange";
-      case themeList.research:
-        return "green";
-      case themeList.copywriting:
-        return "purple";
-      default:
-        return "gray";
-    }
-  };
-
   return (
     <S.CardsItem onClick={onClick}>
       <S.Card>
         <S.CardGroup>
-          <S.CardTheme $color={color()}>
-            <S.CardThemeText $color={color()}>{theme}</S.CardThemeText>
+          <S.CardTheme $color={color(theme)}>
+            <S.CardThemeText $color={color(theme)}>{theme}</S.CardThemeText>
           </S.CardTheme>
           <S.CardLink>
             <S.CardBtn>
@@ -64,7 +52,7 @@ const Card = ({ theme, title, date, onClick }) => {
                 </S.CardDateClipPath>
               </S.CardDateDefs>
             </S.CardDateIcon>
-            <S.CardDateText>{date}</S.CardDateText>
+            <S.CardDateText>{moment(date).format("DD.MM.YYYY")}</S.CardDateText>
           </S.CardDate>
         </S.CardContent>
       </S.Card>

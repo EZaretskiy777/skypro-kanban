@@ -1,72 +1,134 @@
-import Calendar from "../../Calendar/Calendar";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import * as S from "./styledComponents";
+import moment from "moment";
+import ru from "moment/locale/ru";
+import { themeList } from "../../../enums";
+import { color } from "../../../services/utils/color";
+import { addKanbanTask } from "../../../services/api/tasks";
+import { useNavigate } from "react-router-dom";
 
 const PopNewCard = () => {
+  const navigate = useNavigate();
+  const [task, setTask] = useState({
+    title: "",
+    topic: "",
+    status: "Без статуса",
+    description: "",
+    date: "",
+  });
+
+  const setDataHandler = (attribute, value) => {
+    setTask((prevTask) => ({
+      ...prevTask,
+      [attribute]: value,
+    }));
+  };
+
+  const createNewTask = () => {
+    try {
+      const formattedTask = {
+        ...task,
+        date: task.date ? task.date.toISOString() : null, // или "" если сервер не принимает null
+      };
+
+      addKanbanTask({
+        token: JSON.parse(localStorage.getItem("userInfo")).token,
+        task: formattedTask,
+      }).then(() => {
+        console.log("Задача успешно создана:", formattedTask);
+        navigate("/");
+      });
+    } catch (error) {
+      console.error("Ошибка при создании задачи:", error);
+    }
+  };
+
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
-          <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <Link to="/" className="pop-new-card__close">
-              &#10006;
-            </Link>
-            <div className="pop-new-card__wrap">
-              <form
-                className="pop-new-card__form form-new"
-                id="formNewCard"
-                action="#"
-              >
-                <div className="form-new__block">
-                  <label htmlFor="formTitle" className="subttl">
+    <S.PopNewCard>
+      <S.PopNewCardContainer>
+        <S.PopNewCardBlock>
+          <S.PopNewCardContent>
+            <S.PopNewCardTitle>Создание задачи</S.PopNewCardTitle>
+            <S.PopNewCardClose to="/">&#10006;</S.PopNewCardClose>
+            <S.PopNewCardWrap>
+              <S.PopNewCardForm>
+                <S.PopNewCardFormBlock>
+                  <S.PopNewCardSubtitle htmlFor="formTitle">
                     Название задачи
-                  </label>
-                  <input
-                    className="form-new__input"
+                  </S.PopNewCardSubtitle>
+                  <S.PopNewCardInput
                     type="text"
                     name="name"
                     id="formTitle"
                     placeholder="Введите название задачи..."
                     autoFocus
+                    onChange={(text) => {
+                      setDataHandler("title", text.target.value);
+                    }}
                   />
-                </div>
-                <div className="form-new__block">
-                  <label htmlFor="textArea" className="subttl">
+                </S.PopNewCardFormBlock>
+                <S.PopNewCardFormBlock>
+                  <S.PopNewCardSubtitle htmlFor="textArea">
                     Описание задачи
-                  </label>
-                  <textarea
-                    className="form-new__area"
+                  </S.PopNewCardSubtitle>
+                  <S.PopNewTextArea
                     name="text"
                     id="textArea"
                     placeholder="Введите описание задачи..."
-                  ></textarea>
-                </div>
-              </form>
-              <div className="pop-new-card__calendar calendar">
-                <Calendar />
-              </div>
-            </div>
-            <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>
-            </div>
-            <button className="form-new__create _hover01" id="btnCreate">
+                    onChange={(text) =>
+                      setDataHandler("description", text.target.value)
+                    }
+                  ></S.PopNewTextArea>
+                </S.PopNewCardFormBlock>
+              </S.PopNewCardForm>
+              <S.PopNewCardCalendar>
+                <S.CalendarTitle>Даты</S.CalendarTitle>
+                <S.Calendar
+                  locale={ru}
+                  peekNextMonth
+                  firstDayOfWeek={2}
+                  mode="single"
+                  selected={task.date}
+                  onSelect={(date) => setDataHandler("date", date)}
+                  footer={
+                    task.date
+                      ? `Срок исполнения: ${moment(task.date).format(
+                          "DD.MM.YYYY"
+                        )}`
+                      : "Выберите дату"
+                  }
+                />
+              </S.PopNewCardCalendar>
+            </S.PopNewCardWrap>
+            <S.PopNewCardCategories>
+              <S.PopNewCardCategoriesText>Категория</S.PopNewCardCategoriesText>
+              <S.PopNewCardCategoriesThemes>
+                {Object.entries(themeList).map((theme) => {
+                  return (
+                    <S.PopNewCardCategoriesTheme
+                      $color={color(theme[1])}
+                      $active={task.topic === theme[1]}
+                      key={theme[1]}
+                      onClick={() => {
+                        console.log("topic.target: ", theme[1]);
+                        setDataHandler("topic", theme[1]);
+                      }}
+                    >
+                      <S.PopNewCardCategoriesThemeText $color={color(theme[1])}>
+                        {theme[1]}
+                      </S.PopNewCardCategoriesThemeText>
+                    </S.PopNewCardCategoriesTheme>
+                  );
+                })}
+              </S.PopNewCardCategoriesThemes>
+            </S.PopNewCardCategories>
+            <S.PopNewCardCreateBtn id="btnCreate" onClick={createNewTask}>
               Создать задачу
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            </S.PopNewCardCreateBtn>
+          </S.PopNewCardContent>
+        </S.PopNewCardBlock>
+      </S.PopNewCardContainer>
+    </S.PopNewCard>
   );
 };
 

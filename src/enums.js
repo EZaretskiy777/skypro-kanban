@@ -10,6 +10,6 @@ export const themeList = {
   webDesign: "Web Design",
   research: "Research",
   copywriting: "Copywriting",
-  development: "Development",
-  marketing: "Marketing",
+  // development: "Development",
+  // marketing: "Marketing",
 };
