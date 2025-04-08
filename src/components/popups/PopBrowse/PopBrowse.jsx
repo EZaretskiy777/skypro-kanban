@@ -84,6 +84,7 @@ const PopBrowse = () => {
               <S.PopNewBrowserCalendar>
                 <S.CalendarTitle>Даты</S.CalendarTitle>
                 <S.Calendar
+                  disabled={true}
                   peekNextMonth
                   locale={ru}
                   firstDayOfWeek={2}

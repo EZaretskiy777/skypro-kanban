@@ -33,19 +33,16 @@ export async function getKanbanTask({ token, taskId }) {
 
 export async function addKanbanTask({ token, task }) {
   try {
-    const response = await axios.post(API_URL_KANBAN, task, {
+    const data = await axios.post(API_URL_KANBAN, task, {
       headers: {
         Authorization: `Bearer ${token}`.replaceAll('"', ""),
         "Content-Type": "",
       },
     });
-    return response.data;
+    return data.data.tasks;
   } catch (error) {
-    console.error(
-      "Ошибка при создании задачи:",
-      error.response?.data || error.message
-    );
-    throw new Error(error.response?.data?.error || "Неизвестная ошибка");
+    console.error(error);
+    throw new Error(error.response.data.error);
   }
 }
 

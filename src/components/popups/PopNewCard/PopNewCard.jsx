@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import * as S from "./styledComponents";
 import moment from "moment";
 import ru from "moment/locale/ru";
@@ -6,13 +6,15 @@ import { themeList } from "../../../enums";
 import { color } from "../../../services/utils/color";
 import { addKanbanTask } from "../../../services/api/tasks";
 import { useNavigate } from "react-router-dom";
+import { TaskContext } from "../../../providers/TaskProvider";
 
 const PopNewCard = () => {
   const navigate = useNavigate();
+  const { setTasks } = useContext(TaskContext);
+
   const [task, setTask] = useState({
     title: "",
     topic: "",
-    status: "Без статуса",
     description: "",
     date: "",
   });
@@ -29,7 +31,9 @@ const PopNewCard = () => {
       addKanbanTask({
         token: JSON.parse(localStorage.getItem("userInfo")).token,
         task,
-      }).then(() => {
+      }).then((data) => {
+        console.log("data: ", data);
+        setTasks(data);
         navigate("/");
       });
     } catch (error) {
