@@ -36,7 +36,7 @@ export async function addKanbanTask({ token, task }) {
     const response = await axios.post(API_URL_KANBAN, task, {
       headers: {
         Authorization: `Bearer ${token}`.replaceAll('"', ""),
-        "Content-Type": "application/json",
+        "Content-Type": "",
       },
     });
     return response.data;

@@ -26,16 +26,10 @@ const PopNewCard = () => {
 
   const createNewTask = () => {
     try {
-      const formattedTask = {
-        ...task,
-        date: task.date ? task.date.toISOString() : null, // или "" если сервер не принимает null
-      };
-
       addKanbanTask({
         token: JSON.parse(localStorage.getItem("userInfo")).token,
-        task: formattedTask,
+        task,
       }).then(() => {
-        console.log("Задача успешно создана:", formattedTask);
         navigate("/");
       });
     } catch (error) {
