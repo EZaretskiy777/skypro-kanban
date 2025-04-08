@@ -46,14 +46,15 @@ export async function addKanbanTask({ token, task }) {
   }
 }
 
-export async function changeKanbanTask({ task }) {
+export async function changeKanbanTask({ token, task, id }) {
   try {
-    const data = await axios.put(API_URL_KANBAN, task, {
+    const data = await axios.put(API_URL_KANBAN + "/" + id, task, {
       headers: {
-        authorization: token,
+        Authorization: `Bearer ${token}`.replaceAll('"', ""),
+        "Content-Type": "",
       },
     });
-    return data.data;
+    return data.data.tasks;
   } catch (error) {
     throw new Error(error.response.data.error);
   }

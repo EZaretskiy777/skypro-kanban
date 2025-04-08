@@ -2,16 +2,42 @@ import PropTypes from "prop-types";
 import * as S from "./styledComponents";
 import { color } from "../../services/utils/color";
 import moment from "moment";
+import { useDraggable } from "@dnd-kit/core";
+import { useNavigate } from "react-router-dom";
 
-const Card = ({ theme, title, date, onClick }) => {
+const Card = ({ theme, id, title, date }) => {
+  const navigate = useNavigate();
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: id,
+    });
+
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    position: "relative",
+    zIndex: isDragging ? 1000 : 1,
+    opacity: isDragging ? 0.8 : 1,
+    transition: "box-shadow 0.2s ease",
+    boxShadow: isDragging ? "0 0 10px rgba(0,0,0,0.2)" : "none",
+  };
+
+  const cardInfoHandler = () => {
+    navigate(`/card/${id}`);
+  };
+
   return (
-    <S.CardsItem onClick={onClick}>
+    <S.CardsItem ref={setNodeRef} {...listeners} {...attributes} style={style}>
       <S.Card>
         <S.CardGroup>
           <S.CardTheme $color={color(theme)}>
             <S.CardThemeText $color={color(theme)}>{theme}</S.CardThemeText>
           </S.CardTheme>
-          <S.CardLink>
+          <S.CardLink
+            onClick={cardInfoHandler}
+            onPointerDown={(e) => e.stopPropagation()}
+          >
             <S.CardBtn>
               <S.CardBtnBlock />
               <S.CardBtnBlock />
@@ -65,6 +91,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Card;

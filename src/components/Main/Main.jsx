@@ -1,16 +1,15 @@
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
 import { statusList } from "../../enums";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./styledComponents";
-import { getKanbanTasks } from "../../services/api/tasks";
+import { getKanbanTasks, changeKanbanTask } from "../../services/api/tasks";
 import { TaskContext } from "../../providers/TaskProvider";
+import { DndContext } from "@dnd-kit/core";
 
 const Main = () => {
-  const navigate = useNavigate();
   const { tasks, setTasks } = useContext(TaskContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -27,40 +26,74 @@ const Main = () => {
       });
   }, []);
 
-  const cardInfoHandler = (taskId) => {
-    navigate(`/card/${taskId}`);
+  const dragEndHandler = (e) => {
+    const { active, over } = e;
+    console.log("Active:", active);
+    console.log("Over:", over);
+
+    if (!over) return;
+    const currentTaskId = active.id;
+    const newStatus = over.id;
+
+    console.log("newStatus: ", newStatus);
+
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => {
+        if (task._id === currentTaskId) {
+          return { ...task, status: newStatus };
+        }
+        return task;
+      })
+    );
+    changeKanbanTask({
+      token: JSON.parse(localStorage.getItem("userInfo")).token,
+      task: {
+        ...tasks.find((task) => task._id === currentTaskId),
+        status: newStatus,
+      },
+      id: currentTaskId,
+    })
+      .then((data) => {
+        setTasks(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const mainContent = Object.entries(statusList).map((status) => {
     return (
       <Column key={status[1]} title={status[1]}>
-        {tasks.length > 0 &&
-          tasks.map((task) => {
-            if (task.status === status[1]) {
-              return isLoading ? (
-                <Skeleton key={task._id} height={130} width={220} />
-              ) : (
-                <Card
-                  onClick={() => cardInfoHandler(task._id)}
-                  key={task._id}
-                  theme={task.topic}
-                  title={task.title}
-                  date={task.date}
-                />
-              );
-            }
-          })}
+        {tasks.map((task) => {
+          if (task.status === status[1]) {
+            return isLoading ? (
+              <Skeleton key={task._id} height={130} width={220} />
+            ) : (
+              <Card
+                id={task._id}
+                key={task._id}
+                theme={task.topic}
+                title={task.title}
+                date={task.date}
+              />
+            );
+          }
+          return null;
+        })}
       </Column>
     );
   });
 
   return (
     <SkeletonTheme color="#202020" highlightColor="#444">
-      {isLoading && <p className="main__loader_text">Данные загружаются...</p>}
+      {isLoading && <S.MainLoaderText>Данные загружаются...</S.MainLoaderText>}
+
       <S.Main>
         <S.MainContainer>
           <S.MainBlock>
-            <S.MainContent>{mainContent}</S.MainContent>
+            <S.MainContent>
+              <DndContext onDragEnd={dragEndHandler}>{mainContent}</DndContext>
+            </S.MainContent>
           </S.MainBlock>
         </S.MainContainer>
       </S.Main>

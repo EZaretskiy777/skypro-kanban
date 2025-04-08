@@ -101,7 +101,10 @@ export const CardThemeText = styled.p`
   }};
 `;
 
-export const CardLink = styled.a``;
+export const CardLink = styled.div`
+  pointerevents: auto;
+  cursor: pointer;
+`;
 
 export const CardBtn = styled.div`
   width: 24px;
