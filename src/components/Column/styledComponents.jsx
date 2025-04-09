@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Column = styled.div`
+  height: 80vh;
+  heigth: 100%;
   width: 20%;
   margin: 0 auto;
   display: block;

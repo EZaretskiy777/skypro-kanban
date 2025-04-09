@@ -161,7 +161,8 @@ export const PopNewTextArea = styled.textarea`
     color: #94a6be;
     letter-spacing: -0.14px;
   }
-  ::placeholder {
+  &::placeholder {
+    padding-top: 6px;
     font-weight: 400;
     font-size: 14px;
     line-height: 1px;

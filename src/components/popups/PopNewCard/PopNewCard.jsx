@@ -26,6 +26,8 @@ const PopNewCard = () => {
     }));
   };
 
+  const checkFields = () => {};
+
   const createNewTask = () => {
     try {
       addKanbanTask({

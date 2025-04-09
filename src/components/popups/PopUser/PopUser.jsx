@@ -10,11 +10,7 @@ const PopUser = ({ showUserPopupHandler }) => {
       <S.PopUserSetMail>{user.login}</S.PopUserSetMail>
       <S.PopUserSetTheme>
         <S.PopUserSetThemeP>Темная тема</S.PopUserSetThemeP>
-        <S.PopUserSetThemeInput
-          type="checkbox"
-          className="checkbox"
-          name="checkbox"
-        />
+        <S.PopUserSetThemeInput type="checkbox" name="checkbox" />
       </S.PopUserSetTheme>
       <S.PopUserSetBtn onClick={showUserPopupHandler} type="button">
         <S.PopUserSetBtnLink to="/exit">Выйти</S.PopUserSetBtnLink>
