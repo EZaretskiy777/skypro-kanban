@@ -9,7 +9,7 @@ const PopUser = ({ showUserPopupHandler }) => {
 
   const checkboxHandler = (e) => {
     const isChecked = e.target.checked;
-    setThemeHandler(isChecked ? "light" : "dark");
+    setThemeHandler(isChecked ? "dark" : "light");
   };
 
   return (
@@ -22,7 +22,7 @@ const PopUser = ({ showUserPopupHandler }) => {
           onChange={checkboxHandler}
           type="checkbox"
           name="checkbox"
-          checked={theme === "light" ? true : false}
+          checked={theme === "light" ? false : true}
         />
       </S.PopUserSetTheme>
       <S.PopUserSetBtn onClick={showUserPopupHandler} type="button">
