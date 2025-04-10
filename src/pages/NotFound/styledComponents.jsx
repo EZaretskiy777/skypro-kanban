@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const H1 = styled.h1`
   font-size: 40px;
@@ -16,4 +17,25 @@ export const P = styled.p`
   letter-spacing: -0.72px;
   text-align: center;
   color: gray;
+  margin-bottom: 10px;
+`;
+
+export const FlexBox = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const GoHomeLink = styled(Link)`
+  width: fit-content;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #565eef;
+  color: #ffffff;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #33399b;
+  }
 `;

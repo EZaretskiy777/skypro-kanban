@@ -2,10 +2,13 @@ import * as S from "./styledComponents";
 
 const NotFound = () => {
   return (
-    <div>
+    <>
       <S.H1>404</S.H1>
       <S.P>Oops, This Page Not Found!</S.P>
-    </div>
+      <S.FlexBox>
+        <S.GoHomeLink to="/">To the home page</S.GoHomeLink>
+      </S.FlexBox>
+    </>
   );
 };
 

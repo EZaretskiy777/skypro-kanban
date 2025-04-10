@@ -14,6 +14,8 @@ import { TaskContext } from "../../../providers/TaskProvider";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../Loader/Loader";
 import { statusList } from "../../../enums";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PopBrowse = () => {
   const [task, setTask] = useState({
@@ -41,7 +43,10 @@ const PopBrowse = () => {
         setTask(kanbanTask);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching task:", error);
+        toast.error("Ошибка при получении задачи " + error, {
+          position: "top-right",
+          toastId: "kanbanTask",
+        });
       }
     };
     fetchTask();
@@ -57,7 +62,10 @@ const PopBrowse = () => {
         setTasks(kanbanTasks);
         navigate("/");
       } catch (error) {
-        console.error("Error deleting task:", error);
+        toast.error("Ошибка при удалении задачи " + error, {
+          position: "top-right",
+          toastId: "deleteTask",
+        });
       }
     };
     deleteTask();
@@ -74,7 +82,10 @@ const PopBrowse = () => {
         setTasks(kanbanTasks);
         setIsEdit(false);
       } catch (error) {
-        console.error("Error deleting task:", error);
+        toast.error("Ошибка при изменении задачи " + error, {
+          position: "top-right",
+          toastId: "changeTask",
+        });
       }
     };
     changeTask();
@@ -126,94 +137,102 @@ const PopBrowse = () => {
       {loading ? (
         <Loader />
       ) : (
-        <S.PopBrows>
-          <S.PopBrowsContainer>
-            <S.PopBrowsBlock>
-              <S.PopBrowserContent>
-                <S.PopBrowsTopBlock>
-                  <S.PopBrowsTtl>{task.title}</S.PopBrowsTtl>
-                  <S.CategoriesTheme $color={color(task.topic)} $active={true}>
-                    <S.CategoriesThemeText $color={color(task.topic)}>
-                      {task.topic}
-                    </S.CategoriesThemeText>
-                  </S.CategoriesTheme>
-                </S.PopBrowsTopBlock>
-                <S.PopBroswStatus>
-                  <S.PopBrowsStatusText>Статус</S.PopBrowsStatusText>
-                  <S.StatusThemes>{statusThemesCalc()}</S.StatusThemes>
-                </S.PopBroswStatus>
-                <S.PopBrowsWrap>
-                  <S.PopBrowsForm>
-                    <S.PopBrowsFormBlock>
-                      <S.PopBrowsFormLabel>Описание задачи</S.PopBrowsFormLabel>
-                      <S.TextArea
-                        name="text"
-                        readOnly={!isEdit}
-                        placeholder="Введите описание задачи..."
-                        value={task.description}
-                        onChange={(text) =>
-                          setDataHandler("description", text.target.value)
+        <>
+          <ToastContainer />
+          <S.PopBrows>
+            <S.PopBrowsContainer>
+              <S.PopBrowsBlock>
+                <S.PopBrowserContent>
+                  <S.PopBrowsTopBlock>
+                    <S.PopBrowsTtl>{task.title}</S.PopBrowsTtl>
+                    <S.CategoriesTheme
+                      $color={color(task.topic)}
+                      $active={true}
+                    >
+                      <S.CategoriesThemeText $color={color(task.topic)}>
+                        {task.topic}
+                      </S.CategoriesThemeText>
+                    </S.CategoriesTheme>
+                  </S.PopBrowsTopBlock>
+                  <S.PopBroswStatus>
+                    <S.PopBrowsStatusText>Статус</S.PopBrowsStatusText>
+                    <S.StatusThemes>{statusThemesCalc()}</S.StatusThemes>
+                  </S.PopBroswStatus>
+                  <S.PopBrowsWrap>
+                    <S.PopBrowsForm>
+                      <S.PopBrowsFormBlock>
+                        <S.PopBrowsFormLabel>
+                          Описание задачи
+                        </S.PopBrowsFormLabel>
+                        <S.TextArea
+                          name="text"
+                          readOnly={!isEdit}
+                          placeholder="Введите описание задачи..."
+                          value={task.description}
+                          onChange={(text) =>
+                            setDataHandler("description", text.target.value)
+                          }
+                        />
+                      </S.PopBrowsFormBlock>
+                    </S.PopBrowsForm>
+                    <S.PopNewBrowserCalendar>
+                      <S.CalendarTitle>Даты</S.CalendarTitle>
+                      <S.Calendar
+                        disabled={!isEdit}
+                        peekNextMonth
+                        locale={ru}
+                        firstDayOfWeek={2}
+                        mode="single"
+                        selected={task.date}
+                        onSelect={(date) => setDataHandler("date", date)}
+                        footer={
+                          task.date
+                            ? `Срок исполнения: ${moment(task.date).format(
+                                "DD.MM.YYYY"
+                              )}`
+                            : "Выберите дату"
                         }
                       />
-                    </S.PopBrowsFormBlock>
-                  </S.PopBrowsForm>
-                  <S.PopNewBrowserCalendar>
-                    <S.CalendarTitle>Даты</S.CalendarTitle>
-                    <S.Calendar
-                      disabled={!isEdit}
-                      peekNextMonth
-                      locale={ru}
-                      firstDayOfWeek={2}
-                      mode="single"
-                      selected={task.date}
-                      onSelect={(date) => setDataHandler("date", date)}
-                      footer={
-                        task.date
-                          ? `Срок исполнения: ${moment(task.date).format(
-                              "DD.MM.YYYY"
-                            )}`
-                          : "Выберите дату"
-                      }
-                    />
-                  </S.PopNewBrowserCalendar>
-                </S.PopBrowsWrap>
-                <S.ThemeDownCategory>
-                  <S.ThemeDownCategoryText>Категория</S.ThemeDownCategoryText>
-                  <S.CategoriesTheme $color="orange" $active={true}>
-                    <S.CategoriesThemeText $color="orange">
-                      Web Design
-                    </S.CategoriesThemeText>
-                  </S.CategoriesTheme>
-                </S.ThemeDownCategory>
-                <S.PopBrowsBtnBrowse>
-                  <S.BtnGroup>
-                    <S.PopBrowsBtnBg
-                      $hide={!isEdit}
-                      onClick={changeTaskHandler}
-                    >
-                      Сохранить
+                    </S.PopNewBrowserCalendar>
+                  </S.PopBrowsWrap>
+                  <S.ThemeDownCategory>
+                    <S.ThemeDownCategoryText>Категория</S.ThemeDownCategoryText>
+                    <S.CategoriesTheme $color="orange" $active={true}>
+                      <S.CategoriesThemeText $color="orange">
+                        Web Design
+                      </S.CategoriesThemeText>
+                    </S.CategoriesTheme>
+                  </S.ThemeDownCategory>
+                  <S.PopBrowsBtnBrowse>
+                    <S.BtnGroup>
+                      <S.PopBrowsBtnBg
+                        $hide={!isEdit}
+                        onClick={changeTaskHandler}
+                      >
+                        Сохранить
+                      </S.PopBrowsBtnBg>
+                      <S.PopBrowsBtn
+                        $hide={!isEdit}
+                        onClick={cancelEditTaskHandler}
+                      >
+                        Отменить
+                      </S.PopBrowsBtn>
+                      <S.PopBrowsBtn $hide={isEdit} onClick={editTaskHandler}>
+                        Редактировать задачу
+                      </S.PopBrowsBtn>
+                      <S.PopBrowsBtn onClick={deleteTaskHandler}>
+                        Удалить задачу
+                      </S.PopBrowsBtn>
+                    </S.BtnGroup>
+                    <S.PopBrowsBtnBg>
+                      <S.PopBrowsLink to="/">Закрыть</S.PopBrowsLink>
                     </S.PopBrowsBtnBg>
-                    <S.PopBrowsBtn
-                      $hide={!isEdit}
-                      onClick={cancelEditTaskHandler}
-                    >
-                      Отменить
-                    </S.PopBrowsBtn>
-                    <S.PopBrowsBtn $hide={isEdit} onClick={editTaskHandler}>
-                      Редактировать задачу
-                    </S.PopBrowsBtn>
-                    <S.PopBrowsBtn onClick={deleteTaskHandler}>
-                      Удалить задачу
-                    </S.PopBrowsBtn>
-                  </S.BtnGroup>
-                  <S.PopBrowsBtnBg>
-                    <S.PopBrowsLink to="/">Закрыть</S.PopBrowsLink>
-                  </S.PopBrowsBtnBg>
-                </S.PopBrowsBtnBrowse>
-              </S.PopBrowserContent>
-            </S.PopBrowsBlock>
-          </S.PopBrowsContainer>
-        </S.PopBrows>
+                  </S.PopBrowsBtnBrowse>
+                </S.PopBrowserContent>
+              </S.PopBrowsBlock>
+            </S.PopBrowsContainer>
+          </S.PopBrows>
+        </>
       )}
     </>
   );

@@ -46,3 +46,15 @@ export const MainLoaderText = styled.p`
   align-items: center;
   justify-content: center;
 `;
+
+export const NoNewTaskP = styled.p`
+  color: #94a6be;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

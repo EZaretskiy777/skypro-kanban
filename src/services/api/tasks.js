@@ -9,10 +9,11 @@ export async function getKanbanTasks({ token }) {
         authorization: `Bearer ${token}`.replaceAll('"', ""),
       },
     });
+
     return data.data.tasks;
   } catch (error) {
     console.error(error);
-    throw new Error(error.response.data.error);
+    throw new Error(error.message);
   }
 }
 
@@ -26,7 +27,7 @@ export async function getKanbanTask({ token, taskId }) {
     return data.data.task;
   } catch (error) {
     console.error(error);
-    throw new Error(error.response.data.error);
+    throw new Error(error.message);
   }
 }
 
@@ -41,7 +42,7 @@ export async function addKanbanTask({ token, task }) {
     return data.data.tasks;
   } catch (error) {
     console.error(error);
-    throw new Error(error.response.data.error);
+    throw new Error(error.message);
   }
 }
 
@@ -55,7 +56,8 @@ export async function changeKanbanTask({ token, task, taskId }) {
     });
     return data.data.tasks;
   } catch (error) {
-    throw new Error(error.response.data.error);
+    console.error(error);
+    throw new Error(error.message);
   }
 }
 
@@ -69,6 +71,7 @@ export async function deleteKanbanTask({ token, taskId }) {
     });
     return data.data.tasks;
   } catch (error) {
-    throw new Error(error.response.data.error);
+    console.error(error);
+    throw new Error(error.message);
   }
 }

@@ -9,6 +9,8 @@ import { TaskContext } from "../../providers/TaskProvider";
 import { DndContext } from "@dnd-kit/core";
 import { SkeletonTheme } from "react-loading-skeleton";
 import SkeletonCard from "../Card/SkeletonCard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Main = () => {
   const { tasks, setTasks } = useContext(TaskContext);
@@ -23,7 +25,10 @@ const Main = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        toast.error("Ошибка при получении списка задач " + error, {
+          position: "top-right",
+          toastId: "getKanbanTasks",
+        });
       });
   }, []);
 
@@ -41,6 +46,7 @@ const Main = () => {
         return task;
       })
     );
+
     changeKanbanTask({
       token: JSON.parse(localStorage.getItem("userInfo")).token,
       task: {
@@ -53,45 +59,58 @@ const Main = () => {
         setTasks(data);
       })
       .catch((error) => {
-        console.error(error);
+        toast.error("Ошибка при обновлении задачи " + error, {
+          position: "top-right",
+          toastId: "changeKanbanTask",
+        });
       });
   };
 
-  const mainContent = Object.entries(statusList).map((status) => {
-    return (
-      <Column key={status[1]} title={status[1]}>
-        {tasks.map((task) => {
-          if (task.status === status[1]) {
-            return isLoading ? (
-              <SkeletonCard key={task._id} />
-            ) : (
-              <Card
-                id={task._id}
-                key={task._id}
-                theme={task.topic}
-                title={task.title}
-                date={task.date}
-              />
-            );
-          }
-          return null;
-        })}
-      </Column>
-    );
-  });
+  const mainContent =
+    !isLoading && tasks.length === 0 ? (
+      <S.NoNewTaskP>Новых задач нет</S.NoNewTaskP>
+    ) : tasks.length !== 0 ? (
+      Object.entries(statusList).map((status) => {
+        return (
+          <Column key={status[1]} title={status[1]}>
+            {tasks.map((task) => {
+              if (task.status === status[1]) {
+                return isLoading ? (
+                  <SkeletonCard key={task._id} />
+                ) : (
+                  <Card
+                    id={task._id}
+                    key={task._id}
+                    theme={task.topic}
+                    title={task.title}
+                    date={task.date}
+                  />
+                );
+              }
+              return null;
+            })}
+          </Column>
+        );
+      })
+    ) : null;
 
   return (
-    <SkeletonTheme color="#202020" highlightColor="#444">
-      <S.Main>
-        <S.MainContainer>
-          <S.MainBlock>
-            <S.MainContent>
-              <DndContext onDragEnd={dragEndHandler}>{mainContent}</DndContext>
-            </S.MainContent>
-          </S.MainBlock>
-        </S.MainContainer>
-      </S.Main>
-    </SkeletonTheme>
+    <>
+      <ToastContainer />
+      <SkeletonTheme color="#202020" highlightColor="#444">
+        <S.Main>
+          <S.MainContainer>
+            <S.MainBlock>
+              <S.MainContent>
+                <DndContext onDragEnd={dragEndHandler}>
+                  {mainContent}
+                </DndContext>
+              </S.MainContent>
+            </S.MainBlock>
+          </S.MainContainer>
+        </S.Main>
+      </SkeletonTheme>
+    </>
   );
 };
 
