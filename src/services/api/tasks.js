@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API_URL_KANBAN = "https://wedev-api.sky.pro/api/kanban";
-const token = localStorage.getItem("userInfo");
 
 export async function getKanbanTasks({ token }) {
   try {
@@ -60,14 +59,15 @@ export async function changeKanbanTask({ token, task, id }) {
   }
 }
 
-export async function deleteKanbanTask({ taskId }) {
+export async function deleteKanbanTask({ token, taskId }) {
   try {
     const data = await axios.delete(API_URL_KANBAN + `/${taskId}`, {
       headers: {
-        authorization: token,
+        Authorization: `Bearer ${token}`.replaceAll('"', ""),
+        "Content-Type": "",
       },
     });
-    return data.data;
+    return data.data.tasks;
   } catch (error) {
     throw new Error(error.response.data.error);
   }

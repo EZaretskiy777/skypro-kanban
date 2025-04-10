@@ -26,10 +26,11 @@ const PopNewCard = () => {
     }));
   };
 
-  const checkFields = () => {};
-
   const createNewTask = () => {
     try {
+      if (!validateFields()) {
+        return;
+      }
       addKanbanTask({
         token: JSON.parse(localStorage.getItem("userInfo")).token,
         task,
@@ -40,6 +41,16 @@ const PopNewCard = () => {
     } catch (error) {
       console.error("Ошибка при создании задачи:", error);
     }
+  };
+
+  const validateFields = () => {
+    for (const objTask of Object.entries(task)) {
+      if (objTask[1] === "") {
+        alert("Необходимо заполнить все поля.");
+        return false;
+      }
+    }
+    return true;
   };
 
   return (
