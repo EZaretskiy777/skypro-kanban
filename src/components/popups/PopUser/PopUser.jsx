@@ -1,8 +1,16 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import * as S from "./styledComponents";
+import { ThemeContext } from "../../../providers/ThemeProvider";
 
 const PopUser = ({ showUserPopupHandler }) => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
+  const { theme, setThemeHandler } = useContext(ThemeContext);
+
+  const checkboxHandler = (e) => {
+    const isChecked = e.target.checked;
+    setThemeHandler(isChecked ? "dark" : "light");
+  };
 
   return (
     <S.HeaderPopUserSet id="user-set-target">
@@ -10,7 +18,12 @@ const PopUser = ({ showUserPopupHandler }) => {
       <S.PopUserSetMail>{user.login}</S.PopUserSetMail>
       <S.PopUserSetTheme>
         <S.PopUserSetThemeP>Темная тема</S.PopUserSetThemeP>
-        <S.PopUserSetThemeInput type="checkbox" name="checkbox" />
+        <S.PopUserSetThemeInput
+          onChange={checkboxHandler}
+          type="checkbox"
+          name="checkbox"
+          value={theme === "light" ? true : false}
+        />
       </S.PopUserSetTheme>
       <S.PopUserSetBtn onClick={showUserPopupHandler} type="button">
         <S.PopUserSetBtnLink to="/exit">Выйти</S.PopUserSetBtnLink>

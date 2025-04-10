@@ -6,8 +6,9 @@ const ThemeContext = createContext();
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
 
-  const setThemeHandler = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+  const setThemeHandler = (value) => {
+    localStorage.setItem("theme", value);
+    setTheme(value);
   };
 
   return (
