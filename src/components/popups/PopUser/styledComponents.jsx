@@ -59,7 +59,8 @@ export const PopUserSetMail = styled.p`
 export const PopUserSetTheme = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 30px;
 `;
 
