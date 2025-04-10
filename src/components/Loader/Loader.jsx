@@ -5,6 +5,7 @@ const overrideCss = {
   top: "45%",
   left: "45%",
   borderColor: "#565eef",
+  zIndex: 99,
 };
 
 export const Loader = () => {

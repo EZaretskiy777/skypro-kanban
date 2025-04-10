@@ -188,61 +188,14 @@ export const StatusTheme = styled.div`
   margin-bottom: 7px;
   cursor: pointer;
   display: ${({ $hide }) => ($hide ? "none" : "block")};
-  background-color: ${({ $color }) => {
-    switch ($color) {
-      case "orange":
-        return "#ffe4c2";
-      case "green":
-        return "#b4fdd1";
-      case "purple":
-        return "#e9d4ff";
-      case "gray":
-        return "#94a6be";
-    }
-  }};
-
-  color: ${({ $color }) => {
-    switch ($color) {
-      case "orange":
-        return "#ff6d00";
-      case "green":
-        return "#06b16e";
-      case "purple":
-        return "#9a48f1";
-      case "gray":
-        return "#ffffff";
-    }
-  }};
+  background-color: ${({ $current }) =>
+    $current ? "rgba(148, 166, 190, 0.4)" : ""};
 `;
 
 export const StatusThemeText = styled.p`
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
-  background-color: ${({ $color }) => {
-    switch ($color) {
-      case "orange":
-        return "#ffe4c2";
-      case "green":
-        return "#b4fdd1";
-      case "purple":
-        return "#e9d4ff";
-      case "gray":
-        return "#94a6be";
-    }
-  }};
-
-  color: ${({ $color }) => {
-    switch ($color) {
-      case "orange":
-        return "#ff6d00";
-      case "green":
-        return "#06b16e";
-      case "purple":
-        return "#9a48f1";
-      case "gray":
-        return "#ffffff";
-    }
   }};
 `;
 
@@ -278,27 +231,20 @@ export const PopBrowsFormLabel = styled.label`
 `;
 
 export const TextArea = styled.textarea`
-  resize: none;
-  max-width: 370px;
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
+  background: transparent;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
+  max-width: 370px;
   margin-top: 14px;
-  height: 224px;
-  color: #000;
-
-  &::placeholder {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1px;
-    color: #94a6be;
-    letter-spacing: -0.14px;
+  height: 220px;
+  &[readonly] {
+    background-color: #eaeef6;
   }
   &::-moz-placeholder {
     font-weight: 400;
@@ -307,9 +253,17 @@ export const TextArea = styled.textarea`
     color: #94a6be;
     letter-spacing: -0.14px;
   }
+  &::placeholder {
+    padding-top: 6px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1px;
+    color: #94a6be;
+    letter-spacing: -0.14px;
+  }
   @media screen and (max-width: 495px) {
     max-width: 100%;
-    height: 37px;
+    height: 34px;
   }
 `;
 
@@ -357,12 +311,15 @@ export const PopBrowsBtnBrowse = styled.div`
 `;
 
 export const BtnGroup = styled.div`
+  display: flex;
+  flex-direction: row;
   @media screen and (max-width: 495px) {
     width: 100%;
   }
 `;
 
 export const PopBrowsBtn = styled.button`
+  display: ${({ $hide }) => ($hide ? "none" : "block")};
   height: 30px;
   margin-bottom: 10px;
   padding: 0 14px;
@@ -384,6 +341,7 @@ export const PopBrowsBtn = styled.button`
 `;
 
 export const PopBrowsBtnBg = styled.button`
+  display: ${({ $hide }) => ($hide ? "none" : "block")};
   height: 30px;
   margin-bottom: 10px;
   padding: 0 14px;

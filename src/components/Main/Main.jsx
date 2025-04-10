@@ -47,7 +47,7 @@ const Main = () => {
         ...tasks.find((task) => task._id === currentTaskId),
         status: newStatus,
       },
-      id: currentTaskId,
+      taskId: currentTaskId,
     })
       .then((data) => {
         setTasks(data);
