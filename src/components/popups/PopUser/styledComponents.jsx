@@ -10,7 +10,7 @@ export const HeaderPopUserSet = styled.div`
   height: 205px;
   border-radius: 10px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  background: #fff;
+  background-color: ${({ theme }) => theme.colors.secondary};
   box-shadow: 0px 10px 39px 0px rgba(26, 56, 101, 0.21);
   padding: 34px;
   text-align: center;
@@ -24,11 +24,12 @@ export const PopUserSetBtn = styled.button`
   width: 72px;
   height: 30px;
   background: transparent;
-  color: #565eef;
+  color: ${({ theme }) => theme.colors.buttonColor};
   border-radius: 4px;
-  border: 1px solid #565eef;
+  border: 1px solid ${({ theme }) => theme.colors.buttonColor};
   &:hover {
     background-color: #33399b;
+    border-color: #33399b;
     a {
       color: #ffffff;
     }
@@ -36,11 +37,11 @@ export const PopUserSetBtn = styled.button`
 `;
 
 export const PopUserSetBtnLink = styled(Link)`
-  color: #565eef;
+  color: ${({ theme }) => theme.colors.buttonColor};
 `;
 
 export const PopUserSetName = styled.p`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -65,7 +66,7 @@ export const PopUserSetTheme = styled.div`
 `;
 
 export const PopUserSetThemeP = styled.p`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   line-height: 21px;
   letter-spacing: -0.14px;

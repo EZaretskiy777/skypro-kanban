@@ -47,7 +47,7 @@ export const PopBrowsContainer = styled.div`
 export const PopBrowsBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.secondary};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 38px;
@@ -79,7 +79,7 @@ export const PopBrowsTopBlock = styled.div`
 `;
 
 export const PopBrowsTtl = styled.h3`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -166,7 +166,7 @@ export const PopBroswStatus = styled.div`
 
 export const PopBrowsStatusText = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -182,7 +182,8 @@ export const StatusThemes = styled.div`
 export const StatusTheme = styled.div`
   border-radius: 24px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
-  color: #94a6be;
+  color: ${({ $current, theme }) =>
+    $current ? theme.colors.statusColor : "#94a6be"};
   padding: 11px 14px 10px;
   margin-right: 7px;
   margin-bottom: 7px;
@@ -224,13 +225,14 @@ export const PopBrowsFormBlock = styled.div`
 `;
 
 export const PopBrowsFormLabel = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
 `;
 
 export const TextArea = styled.textarea`
+  color: ${({ theme }) => theme.colors.text};
   width: 100%;
   outline: none;
   padding: 14px;
@@ -244,7 +246,7 @@ export const TextArea = styled.textarea`
   margin-top: 14px;
   height: 220px;
   &[readonly] {
-    background-color: #eaeef6;
+    background-color: ${({ theme }) => theme.colors.background};
   }
   &::-moz-placeholder {
     font-weight: 400;
@@ -280,7 +282,7 @@ export const CalendarTitle = styled.p`
   padding: 0 !important;
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -297,7 +299,7 @@ export const ThemeDownCategory = styled.div`
 
 export const ThemeDownCategoryText = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -325,12 +327,14 @@ export const PopBrowsBtn = styled.button`
   padding: 0 14px;
   margin-right: 8px;
   border-radius: 4px;
-  border: 0.7px solid var(--palette-navy-60, #565eef);
+  border: 0.7px solid
+    var(--palette-navy-60, ${({ theme }) => theme.colors.buttonColor});
   outline: none;
   background: transparent;
-  color: #565eef;
+  color: ${({ theme }) => theme.colors.buttonColor};
   &:hover {
     background-color: #33399b;
+    border-color: #33399b;
     color: #ffffff;
   }
   @media screen and (max-width: 495px) {
@@ -379,7 +383,8 @@ export const Button = styled.button`
   color: ${({ $primary }) => ($primary ? "#ffffff" : "#565eef")};
 
   &:hover {
-    background: ${({ $primary }) => ($primary ? "#4049c9" : "#eaeef6")};
+    background: ${({ $primary }) =>
+      $primary ? "#4049c9" : "${({ theme }) => theme.colors.background}"};
   }
 
   &:active {

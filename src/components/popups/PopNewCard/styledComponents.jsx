@@ -42,7 +42,7 @@ export const PopNewCardContainer = styled.div`
 export const PopNewCardBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.secondary};
   max-width: 630px;
   width: 100%;
   padding: 40px 30px 48px;
@@ -63,7 +63,7 @@ export const PopNewCardContent = styled.div`
 `;
 
 export const PopNewCardTitle = styled.h2`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -77,7 +77,7 @@ export const PopNewCardClose = styled(Link)`
   color: #94a6be;
   cursor: pointer;
   &:hover {
-    color: #000000;
+    color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -108,13 +108,14 @@ export const PopNewCardFormBlock = styled.div`
 `;
 
 export const PopNewCardSubtitle = styled.label`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
 `;
 
 export const PopNewCardInput = styled.input`
+  color: ${({ theme }) => theme.colors.text};
   width: 100%;
   outline: none;
   padding: 14px;
@@ -142,6 +143,7 @@ export const PopNewCardInput = styled.input`
 `;
 
 export const PopNewTextArea = styled.textarea`
+  color: ${({ theme }) => theme.colors.text};
   width: 100%;
   outline: none;
   padding: 14px;
@@ -191,7 +193,7 @@ export const CalendarTitle = styled.p`
   padding: 0 !important;
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -203,7 +205,7 @@ export const PopNewCardCategories = styled.div`
 
 export const PopNewCardCategoriesText = styled.p`
   margin-bottom: 14px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;

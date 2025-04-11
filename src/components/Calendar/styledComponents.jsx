@@ -4,7 +4,7 @@ export const CalendarTitle = styled.p`
   padding: 0;
   margin-bottom: 14px;
   padding: 0 7px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
@@ -106,7 +106,8 @@ export const CalendarCell = styled.div`
   opacity: ${({ $otherMonth }) => $otherMonth && 0};
   font-weight: ${({ $current }) => $current && 700};
   &:hover {
-    background-color: ${({ $cellDay }) => $cellDay && "#eaeef6"};
+    background-color: ${({ $cellDay }) =>
+      $cellDay && "${({ theme }) => theme.colors.background}"};
   }
   @media screen and (max-width: 660px) {
     width: 42px;
@@ -134,5 +135,5 @@ export const CalendarPeriodP = styled.p`
 `;
 
 export const CalendarPeriodDateControl = styled.span`
-  color: #000000;
+  color: ${({ theme }) => theme.colors.text};
 `;

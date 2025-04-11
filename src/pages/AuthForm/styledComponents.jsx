@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #eaeef6;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Container = styled.div`
@@ -25,14 +25,14 @@ export const Modal = styled.div`
   align-items: center;
   justify-content: center;
   @media screen and (max-width: 375px) {
-    background-color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 
 export const ModalBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.secondary};
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
@@ -69,6 +69,8 @@ export const ModalForm = styled.form`
 `;
 
 export const ModalInput = styled.input`
+  color: ${({ theme }) => theme.colors.text};
+  background: transparent;
   width: 100%;
   min-width: 100%;
   border-radius: 8px;

@@ -1,28 +1,22 @@
-import { useContext } from "react";
 import PropTypes from "prop-types";
 import * as S from "./styledComponents";
-import { ThemeContext } from "../../../providers/ThemeProvider";
+import { useTheme } from "../../../providers/ThemesProvider";
 
 const PopUser = ({ showUserPopupHandler }) => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
-  const { theme, setThemeHandler } = useContext(ThemeContext);
-
-  const checkboxHandler = (e) => {
-    const isChecked = e.target.checked;
-    setThemeHandler(isChecked ? "dark" : "light");
-  };
+  const { isDark, toggleTheme } = useTheme();
 
   return (
-    <S.HeaderPopUserSet id="user-set-target">
+    <S.HeaderPopUserSet>
       <S.PopUserSetName>{user.name}</S.PopUserSetName>
       <S.PopUserSetMail>{user.login}</S.PopUserSetMail>
       <S.PopUserSetTheme>
         <S.PopUserSetThemeP>Темная тема</S.PopUserSetThemeP>
         <S.PopUserSetThemeInput
-          onChange={checkboxHandler}
+          onChange={toggleTheme}
           type="checkbox"
           name="checkbox"
-          checked={theme === "light" ? false : true}
+          checked={isDark}
         />
       </S.PopUserSetTheme>
       <S.PopUserSetBtn onClick={showUserPopupHandler} type="button">

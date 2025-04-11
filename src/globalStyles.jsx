@@ -43,8 +43,8 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  color: #000000;
-  background-color: #eaeef6;
+  color: ${({ theme }) => theme.colors.text};
+  background-color: ${({ theme }) => theme.colors.background};
 }
 
 .rdp-months {
@@ -90,7 +90,7 @@ body {
   letter-spacing: -0.2px;
   cursor: pointer;
   &:hover {
-    background-color: #eaeef6;
+    background-color: ${({ theme }) => theme.colors.background};
     color: #94a6be !important;
   }
   @media screen and (max-width: 660px) {
@@ -101,8 +101,8 @@ body {
 }
 
 .rdp-today {
-  color: #94A6BE !important;
-  background-color: #EAEEF6;
+  color: ${({ theme }) => theme.colors.calendarTodayColor} !important;
+  background-color: ${({ theme }) => theme.colors.calendarTodayBackground};
 } 
 
 .rdp-selected {

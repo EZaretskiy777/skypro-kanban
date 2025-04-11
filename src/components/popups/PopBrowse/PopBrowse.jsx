@@ -19,8 +19,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const PopBrowse = () => {
   const [task, setTask] = useState({
-    title: "",
-    topic: "",
     status: "",
     date: "",
     description: "",
@@ -72,6 +70,9 @@ const PopBrowse = () => {
   };
 
   const changeTaskHandler = () => {
+    if (!validateFields()) {
+      return;
+    }
     const changeTask = async () => {
       try {
         const kanbanTasks = await changeKanbanTask({
@@ -130,6 +131,19 @@ const PopBrowse = () => {
         </S.StatusTheme>
       );
     }
+  };
+
+  const validateFields = () => {
+    for (const objTask of Object.entries(task)) {
+      console.log("String: ", String(objTask[1] ?? "").trim().length > 0);
+      if (String(objTask[1] ?? "").trim().length === 0) {
+        toast.error("Необходимо заполнить все поля.", {
+          position: "top-right",
+        });
+        return false;
+      }
+    }
+    return true;
   };
 
   return (

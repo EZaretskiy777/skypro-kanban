@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Header = styled.header`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.secondary};
   padding: 20px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -88,7 +88,7 @@ export const HeaderUserBtn = styled.button`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: #565eef;
+  color: ${({ theme }) => theme.colors.userNameColor};
   border: none;
   background: transparent;
 
@@ -105,11 +105,11 @@ export const HeaderUserBtn = styled.button`
     padding: 0;
   }
   &:hover {
-    color: #33399b;
+    color: ${({ theme }) => theme.colors.userNameHoverColor};
   }
 
   &:hover::after {
-    border-left-color: #33399b;
-    border-bottom-color: #33399b;
+    border-left-color: ${({ theme }) => theme.colors.userNameHoverColor};
+    border-bottom-color: ${({ theme }) => theme.colors.userNameHoverColor};
   }
 `;

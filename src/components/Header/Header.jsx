@@ -1,14 +1,14 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import PopUser from "../popups/PopUser/PopUser";
 import * as S from "./styledComponents";
-import { ThemeContext } from "../../providers/ThemeProvider";
+import { useTheme } from "../../providers/ThemesProvider";
 
 const Header = () => {
   const [showUserPopup, setShowUserPopup] = useState(false);
   const showUserPopupHandler = () => {
     setShowUserPopup(!showUserPopup);
   };
-  const { theme } = useContext(ThemeContext);
+  const { isDark } = useTheme();
   const user = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
@@ -18,7 +18,7 @@ const Header = () => {
           <S.HeaderLogo>
             <S.HeaderLink to="/">
               <S.HeaderLogoImg
-                src={theme === "light" ? "/logo.png" : "/logo_dark.png"}
+                src={isDark ? "/logo_dark.png" : "/logo.png"}
                 alt="logo"
               />
             </S.HeaderLink>
