@@ -41,7 +41,10 @@ const PopNewCard = () => {
         navigate("/");
       });
     } catch (error) {
-      console.error("Ошибка при создании задачи:", error);
+      toast.error("Ошибка при создании задачи " + error, {
+        position: "top-right",
+        toastId: "addKanbanTask",
+      });
     }
   };
 
