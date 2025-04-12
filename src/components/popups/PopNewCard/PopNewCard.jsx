@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import * as S from "./styledComponents";
 import moment from "moment";
 import ru from "moment/locale/ru";
@@ -6,13 +6,13 @@ import { themeList } from "../../../enums";
 import { color } from "../../../services/utils/color";
 import { addKanbanTask } from "../../../services/api/tasks";
 import { useNavigate } from "react-router-dom";
-import { TaskContext } from "../../../providers/TaskProvider";
+import { useTask } from "../../../providers/TaskProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const PopNewCard = () => {
   const navigate = useNavigate();
-  const { setTasks } = useContext(TaskContext);
+  const { setTasks } = useTask();
 
   const [task, setTask] = useState({
     title: "",

@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import * as S from "./styledComponents";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../providers/AuthProvider";
+import { useAuth } from "../../../providers/AuthProvider";
 
 const PopExit = () => {
   const navigate = useNavigate();
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth } = useAuth();
 
   const exitHandler = () => {
     localStorage.setItem("userInfo", "");

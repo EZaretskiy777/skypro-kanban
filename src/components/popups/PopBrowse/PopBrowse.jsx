@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import moment from "moment";
 import ru from "moment/locale/ru";
 import * as S from "./styledComponents";
@@ -10,7 +10,7 @@ import {
 } from "../../../services/api/tasks";
 import "react-day-picker/style.css";
 import { color } from "../../../services/utils/color";
-import { TaskContext } from "../../../providers/TaskProvider";
+import { useTask } from "../../../providers/TaskProvider";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "../../Loader/Loader";
 import { statusList } from "../../../enums";
@@ -27,7 +27,7 @@ const PopBrowse = () => {
   const [loading, setLoading] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
   const { id: taskId } = useParams();
-  const { setTasks } = useContext(TaskContext);
+  const { setTasks } = useTask();
   const navigate = useNavigate();
   const taskState = useRef();
 

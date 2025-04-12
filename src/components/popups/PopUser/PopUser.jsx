@@ -1,13 +1,31 @@
+import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import * as S from "./styledComponents";
 import { useTheme } from "../../../providers/ThemesProvider";
 
 const PopUser = ({ showUserPopupHandler }) => {
+  const userWindowRef = useRef(null);
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const { isDark, toggleTheme } = useTheme();
 
+  const handleClick = (event) => {
+    if (
+      userWindowRef.current &&
+      !userWindowRef.current.contains(event.target)
+    ) {
+      showUserPopupHandler();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousedown", handleClick);
+    return () => {
+      window.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
   return (
-    <S.HeaderPopUserSet>
+    <S.HeaderPopUserSet ref={userWindowRef}>
       <S.PopUserSetName>{user.name}</S.PopUserSetName>
       <S.PopUserSetMail>{user.login}</S.PopUserSetMail>
       <S.PopUserSetTheme>
@@ -19,7 +37,7 @@ const PopUser = ({ showUserPopupHandler }) => {
           checked={isDark}
         />
       </S.PopUserSetTheme>
-      <S.PopUserSetBtn onClick={showUserPopupHandler} type="button">
+      <S.PopUserSetBtn type="button">
         <S.PopUserSetBtnLink to="/exit">Выйти</S.PopUserSetBtnLink>
       </S.PopUserSetBtn>
     </S.HeaderPopUserSet>

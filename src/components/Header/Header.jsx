@@ -5,9 +5,11 @@ import { useTheme } from "../../providers/ThemesProvider";
 
 const Header = () => {
   const [showUserPopup, setShowUserPopup] = useState(false);
+
   const showUserPopupHandler = () => {
-    setShowUserPopup(!showUserPopup);
+    setShowUserPopup((prev) => !prev);
   };
+
   const { isDark } = useTheme();
   const user = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -29,11 +31,17 @@ const Header = () => {
                 Создать новую задачу
               </S.HeaderBtnMainNewLink>
             </S.HeaderBtnMainNew>
-            <S.HeaderUserBtn onClick={showUserPopupHandler}>
+            <S.HeaderUserBtn
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={() => showUserPopupHandler()}
+            >
               {user.name}
             </S.HeaderUserBtn>
             {showUserPopup && (
-              <PopUser showUserPopupHandler={showUserPopupHandler} />
+              <PopUser
+                showUserPopupHandler={showUserPopupHandler}
+                closedFromPopUp
+              />
             )}
           </S.HeaderNav>
         </S.HeaderBlock>

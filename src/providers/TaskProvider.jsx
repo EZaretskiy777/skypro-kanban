@@ -1,7 +1,9 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import PropTypes from "prop-types";
 
 const TaskContext = createContext();
+
+const useTask = () => useContext(TaskContext);
 
 const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
@@ -17,4 +19,4 @@ TaskProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { TaskContext, TaskProvider };
+export { useTask, TaskProvider };

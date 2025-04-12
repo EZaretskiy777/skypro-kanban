@@ -1,16 +1,15 @@
-import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 import AuthForm from "./pages/AuthForm/AuthForm";
 import NotFound from "./pages/NotFound/NotFound";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import { AuthContext } from "./providers/AuthProvider";
+import { useAuth } from "./providers/AuthProvider";
 import Card from "./pages/Card/Card";
 import Exit from "./pages/Exit/Exit";
 import NewCard from "./pages/NewCard/NewCard";
 
 const AppRoutes = () => {
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth } = useAuth();
 
   return (
     <BrowserRouter>

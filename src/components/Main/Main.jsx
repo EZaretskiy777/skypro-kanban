@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import Column from "../Column/Column";
 import Card from "../Card/Card";
 import { statusList } from "../../enums";
 import "react-loading-skeleton/dist/skeleton.css";
 import * as S from "./styledComponents";
 import { getKanbanTasks, changeKanbanTask } from "../../services/api/tasks";
-import { TaskContext } from "../../providers/TaskProvider";
+import { useTask } from "../../providers/TaskProvider";
 import { DndContext } from "@dnd-kit/core";
 import { SkeletonTheme } from "react-loading-skeleton";
 import SkeletonCard from "../Card/SkeletonCard";
@@ -13,7 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Main = () => {
-  const { tasks, setTasks } = useContext(TaskContext);
+  const { tasks, setTasks } = useTask();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

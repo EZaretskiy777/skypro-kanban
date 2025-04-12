@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import * as S from "./styledComponents";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { signIn, signUp } from "../../services/api/user";
-import { AuthContext } from "../../providers/AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 
 const AuthForm = ({ isSignUp = false }) => {
   const navigate = useNavigate();
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth } = useAuth();
 
   const signInErrotText =
     "Введенные вами данные не распознаны. Проверьте свой логин и пароль и повторите попытку входа.";
