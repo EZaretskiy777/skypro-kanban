@@ -47,7 +47,6 @@ const PopNewCard = () => {
 
   const validateFields = () => {
     for (const objTask of Object.entries(task)) {
-      console.log("String: ", String(objTask[1] ?? "").trim().length > 0);
       if (String(objTask[1] ?? "").trim().length === 0) {
         toast.error("Необходимо заполнить все поля.", {
           position: "top-right",
