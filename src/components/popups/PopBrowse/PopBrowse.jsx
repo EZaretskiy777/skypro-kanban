@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import moment from "moment";
-import ru from "moment/locale/ru";
 import * as S from "./styledComponents";
 import { useParams } from "react-router-dom";
 import {
@@ -16,6 +15,7 @@ import { Loader } from "../../Loader/Loader";
 import { statusList } from "../../../enums";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ru } from "date-fns/locale";
 
 const PopBrowse = () => {
   const [task, setTask] = useState({
@@ -192,9 +192,7 @@ const PopBrowse = () => {
                       <S.CalendarTitle>Даты</S.CalendarTitle>
                       <S.Calendar
                         disabled={!isEdit}
-                        peekNextMonth
                         locale={ru}
-                        firstDayOfWeek={2}
                         mode="single"
                         selected={task.date}
                         onSelect={(date) => setDataHandler("date", date)}

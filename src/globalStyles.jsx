@@ -90,7 +90,7 @@ body {
   letter-spacing: -0.2px;
   cursor: pointer;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: #eaeef6;
     color: #94a6be !important;
   }
   @media screen and (max-width: 660px) {
@@ -101,8 +101,8 @@ body {
 }
 
 .rdp-today {
-  color: ${({ theme }) => theme.colors.calendarTodayColor} !important;
-  background-color: ${({ theme }) => theme.colors.calendarTodayBackground};
+  background-color: #eaeef6;
+  color: #94a6be !important;
 } 
 
 .rdp-selected {
