@@ -26,6 +26,7 @@ const PopBrowse = () => {
 
   const [loading, setLoading] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const { id: taskId } = useParams();
   const { setTasks } = useTask();
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const PopBrowse = () => {
           taskId,
         });
         setTask(kanbanTask);
+        setCurrentMonth(kanbanTask.date);
         setLoading(false);
       } catch (error) {
         toast.error("Ошибка при получении задачи " + error, {
@@ -196,7 +198,8 @@ const PopBrowse = () => {
                         mode="single"
                         selected={task.date}
                         onSelect={(date) => setDataHandler("date", date)}
-                        month={task.date}
+                        month={currentMonth}
+                        onMonthChange={(month) => setCurrentMonth(month)}
                         footer={
                           task.date
                             ? `Срок исполнения: ${moment(task.date).format(
