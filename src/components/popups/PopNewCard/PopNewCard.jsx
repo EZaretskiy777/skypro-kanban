@@ -1,7 +1,6 @@
 import { useState } from "react";
 import * as S from "./styledComponents";
 import moment from "moment";
-import ru from "moment/locale/ru";
 import { themeList } from "../../../enums";
 import { color } from "../../../services/utils/color";
 import { addKanbanTask } from "../../../services/api/tasks";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useTask } from "../../../providers/TaskProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ru } from "date-fns/locale";
 
 const PopNewCard = () => {
   const navigate = useNavigate();
@@ -100,12 +100,10 @@ const PopNewCard = () => {
                 <S.PopNewCardCalendar>
                   <S.CalendarTitle>Даты</S.CalendarTitle>
                   <S.Calendar
-                    locale={ru}
-                    peekNextMonth
-                    firstDayOfWeek={2}
                     mode="single"
                     selected={task.date}
                     onSelect={(date) => setDataHandler("date", date)}
+                    locale={ru}
                     footer={
                       task.date
                         ? `Срок исполнения: ${moment(task.date).format(
