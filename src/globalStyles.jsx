@@ -127,4 +127,8 @@ body {
   .date-control { 
     color: black;
   }
+    
+.rdp-caption_label {
+  text-transform: capitalize;
+}
 `;
