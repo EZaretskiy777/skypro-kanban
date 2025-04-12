@@ -196,6 +196,7 @@ const PopBrowse = () => {
                         mode="single"
                         selected={task.date}
                         onSelect={(date) => setDataHandler("date", date)}
+                        month={task.date}
                         footer={
                           task.date
                             ? `Срок исполнения: ${moment(task.date).format(
