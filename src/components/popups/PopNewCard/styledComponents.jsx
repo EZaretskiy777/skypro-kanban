@@ -143,6 +143,7 @@ export const PopNewCardInput = styled.input`
 `;
 
 export const PopNewTextArea = styled.textarea`
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: ${({ theme }) => theme.colors.text};
   width: 100%;
   outline: none;
